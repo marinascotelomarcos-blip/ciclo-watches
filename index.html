@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CICLO Watches</title>
+<meta name="description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Colores de la presentación de la S07 */
+  :root{
+    color-scheme:dark;
+    --bg:#121212; --wash:#181919; --card:#1C1D1D;
+    --ink:#F2F1EC; --ink-soft:#A3A39E; --ink-grey:#5F605D; --hair:#2B2C2C;
+    --clay:#D4F25C; --clay-wash:#20250F; --moss:#7FD3C7; --moss-wash:#152623;
+    --orange:#F08A4B; --orange-wash:#2A1B12;
+    --serif:"Unbounded","Arial Black",sans-serif;
+    --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --radius:22px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img,svg{display:block}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .serif{font-family:var(--serif)}
+  em{font-style:italic;color:var(--clay)}
+
+  /* Cabecera */
+  header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--hair)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .logo-mark{width:26px;height:26px}
+  .links{display:flex;gap:28px;font-size:15px}
+  .links a{text-decoration:none;color:var(--ink-soft);transition:color .2s}
+  .links a:hover{color:var(--ink)}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:600;font-size:16px;border:0;cursor:pointer;transition:transform .2s ease,background .2s}
+  .btn:hover{transform:translateY(-1px);background:var(--clay)}
+  .btn:active{transform:translateY(0)}
+  .btn.light{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair)}
+  .btn.light:hover{background:var(--wash);box-shadow:inset 0 0 0 1.5px var(--ink-grey)}
+  .btn.small{padding:9px 18px;font-size:14px}
+  .btn .arrow{transition:transform .2s}
+  .btn:hover .arrow{transform:translateX(3px)}
+
+  /* Portada */
+  .hero{padding:80px 0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--clay)}
+  .eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(38px,6.2vw,78px);line-height:1.02;letter-spacing:-.03em;margin:18px 0 24px}
+  h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 18px}
+  h3{font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 6px}
+  .eyebrow{letter-spacing:.14em}
+  .lead{font-size:20px;color:var(--ink-soft);max-width:540px;margin:0}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .hero-art{position:relative;aspect-ratio:1/1.12;border-radius:32px;background:var(--wash);overflow:hidden}
+  .hero-art .disc{position:absolute;inset:auto -18% -24% auto;width:78%;aspect-ratio:1;border-radius:50%;background:var(--clay-wash)}
+  .hero-art svg{position:absolute;inset:0;margin:auto;width:82%;height:82%}
+  .piece{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+  .hero-art:hover .p-top{transform:translateY(-16px)}
+  .hero-art:hover .p-bot{transform:translateY(16px)}
+  .hero-art:hover .p-dial{transform:translateX(-10px)}
+  .hero-art:hover .p-bat{transform:translateX(14px)}
+  .chip{position:absolute;background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .chip b{color:var(--clay)}
+  .chip.c1{top:9%;left:7%}
+  .chip.c2{bottom:11%;right:7%}
+
+  /* Franja de valores */
+  .strip{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:40px}
+  .strip ul{list-style:none;margin:0;padding:22px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .strip li{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--ink-soft)}
+  .strip li span{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--ink);line-height:1}
+
+  section{padding:110px 0}
+  .head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:48px;flex-wrap:wrap}
+  .head .lead{max-width:440px}
+
+  /* Cómo funciona */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .step{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);padding:26px;transition:transform .3s ease,border-color .3s}
+  .step:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
+  .step .ico{width:52px;height:52px;border-radius:16px;background:var(--wash);display:grid;place-items:center;margin-bottom:22px}
+  .step .n{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink-grey);text-transform:uppercase}
+  .step p{margin:0;color:var(--ink-soft);font-size:15.5px}
+
+  /* Cita grande */
+  .quote{background:var(--card);border:1px solid var(--hair);color:var(--ink);border-radius:36px;padding:80px 64px;position:relative;overflow:hidden}
+  .quote p{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.4vw,40px);line-height:1.2;letter-spacing:-.02em;margin:0;max-width:760px;position:relative}
+  .quote p em{color:var(--orange)}
+  .quote small{display:block;margin-top:26px;color:var(--ink-soft);font-size:15px}
+  .quote .ring{position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;border:30px solid var(--clay);opacity:.9;
+    -webkit-mask:conic-gradient(#000 0 72%,transparent 0);mask:conic-gradient(#000 0 72%,transparent 0)}
+  .quote .ring.r2{right:-10px;top:-10px;width:180px;height:180px;border-color:var(--orange);opacity:.9;
+    -webkit-mask:conic-gradient(transparent 0 20%,#000 0 85%,transparent 0);mask:conic-gradient(transparent 0 20%,#000 0 85%,transparent 0)}
+  .quote .ring.r3{right:50px;top:50px;width:60px;height:60px;border-width:14px;border-color:var(--moss)}
+
+  /* Modelos */
+  .models{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .model{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden;transition:transform .3s ease,box-shadow .3s}
+  .model:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
+  .model .pic{aspect-ratio:1/1;background:var(--wash);display:grid;place-items:center}
+  .model .pic svg{width:58%;height:auto}
+  .model .info{padding:20px 22px 22px;display:flex;justify-content:space-between;align-items:end;gap:10px}
+  .model .info p{margin:2px 0 0;color:var(--ink-soft);font-size:14.5px}
+  .price{font-family:var(--serif);font-size:22px;font-weight:600;white-space:nowrap}
+  .parts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .part{background:var(--wash);border-radius:var(--radius);padding:24px}
+  .part ul{list-style:none;margin:14px 0 0;padding:0}
+  .part li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--hair);font-size:15.5px}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:10px;vertical-align:-1px}
+  .soon{margin-top:22px;display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:15.5px}
+  .soon b{background:var(--clay-wash);color:var(--clay);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+
+  /* Reciclado */
+  .origin{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+  .trace{background:var(--card);border:1px solid var(--hair);border-radius:28px;padding:10px 28px}
+  .trace li{list-style:none;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair)}
+  .trace li:last-child{border-bottom:0}
+  .trace ol{margin:0;padding:0}
+  .dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:600}
+  .trace small{display:block;color:var(--ink-soft);font-size:14px}
+  .trace .from{font-size:13px;font-weight:600;color:var(--moss);background:var(--moss-wash);padding:5px 11px;border-radius:999px;white-space:nowrap}
+
+  /* Equipo */
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .person{border-top:1.5px solid var(--ink);padding-top:20px}
+  .person .ini{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1;color:var(--clay);margin-bottom:16px}
+  .person p{margin:0;color:var(--ink-soft);font-size:15.5px}
+
+  /* Contacto */
+  .contact{background:var(--clay-wash);border-radius:36px;padding:72px 64px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  .contact h2{margin-top:0}
+  .contact .side{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .contact .side ul{list-style:none;margin:0;padding:0;color:var(--ink-soft);font-size:15.5px}
+  .contact .side li{padding:4px 0}
+  .contact .side li::before{content:"✓";color:var(--clay);font-weight:700;margin-right:10px}
+  .note{font-size:14.5px;color:var(--clay);min-height:1.4em;margin:0}
+
+  /* Novedades (automatización por correo) */
+  .news{display:flex;gap:8px;width:100%;max-width:360px;margin-top:6px}
+  .news input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:999px;padding:12px 16px;font:inherit;font-size:15px}
+  .news input:focus{outline:2px solid var(--clay);outline-offset:1px}
+  .news button{padding:12px 18px;font-size:15px}
+  .side small{color:var(--ink-soft);font-size:13.5px}
+
+  /* Asistente (chatbot) */
+  .bot-btn{position:fixed;right:20px;bottom:20px;z-index:20;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;background:var(--clay);color:#121212;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .2s}
+  .bot-btn:hover{transform:scale(1.06)}
+  .bot{position:fixed;right:20px;bottom:92px;z-index:20;width:min(360px,calc(100vw - 32px));height:min(480px,calc(100vh - 140px));background:var(--card);border:1px solid var(--hair);border-radius:22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.55);
+    opacity:0;transform:translateY(12px) scale(.98);transform-origin:bottom right;pointer-events:none;transition:opacity .2s,transform .2s}
+  .bot.open{opacity:1;transform:none;pointer-events:auto}
+  .bot-head{padding:16px 18px;border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:12px}
+  .bot-head b{display:block;font-size:15px}
+  .bot-head small{color:var(--ink-soft);font-size:12.5px}
+  .bot-head .x{margin-left:auto;background:none;border:0;color:var(--ink-soft);font-size:22px;cursor:pointer;line-height:1}
+  .bot-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.45}
+  .msg.b{background:var(--wash);border:1px solid var(--hair);border-bottom-left-radius:6px}
+  .msg.u{align-self:flex-end;background:var(--clay);color:#121212;border-bottom-right-radius:6px}
+  .bot-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--hair)}
+  .bot-form input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:999px;padding:11px 14px;font:inherit;font-size:14.5px}
+  .bot-form button{background:var(--clay);color:#121212;border:0;border-radius:999px;padding:0 16px;font-weight:700;cursor:pointer}
+
+  footer{padding:44px 0 56px;color:var(--ink-soft);font-size:14px}
+  footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--hair);padding-top:28px}
+
+  /* Aparición suave al hacer scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .piece,.btn,.step,.model{transition:none}
+  }
+
+  @media (max-width:900px){
+    .hero,.origin,.contact{grid-template-columns:1fr}
+    .hero{padding-top:44px;gap:36px}
+    .steps,.models,.team{grid-template-columns:repeat(2,1fr)}
+    .parts{grid-template-columns:1fr}
+    .strip ul{grid-template-columns:repeat(2,1fr)}
+    .links{display:none}
+    section{padding:76px 0}
+    .quote{padding:52px 30px;border-radius:28px}
+    .contact{padding:44px 28px;border-radius:28px}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .steps,.models,.team{grid-template-columns:1fr}
+    .model .pic{aspect-ratio:16/10}
+    .model .pic svg{width:36%}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="reloj" viewBox="0 0 120 170">
+      <rect x="38" y="0" width="44" height="52" rx="10" fill="var(--strap)"/>
+      <rect x="38" y="118" width="44" height="52" rx="10" fill="var(--strap)"/>
+      <rect x="18" y="40" width="84" height="90" rx="24" fill="var(--case)"/>
+      <rect x="27" y="49" width="66" height="72" rx="17" fill="var(--dial)"/>
+      <circle cx="60" cy="85" r="20" fill="none" stroke="var(--hand)" stroke-width="5" stroke-dasharray="90 40" stroke-linecap="round"/>
+      <rect x="102" y="76" width="6" height="18" rx="3" fill="var(--case)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#inicio" aria-label="CICLO Watches, inicio">
+        <svg class="logo-mark" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="48 15" stroke-linecap="round" transform="rotate(-60 13 13)"/><circle cx="13" cy="13" r="3.4" fill="var(--clay)"/></svg>
+        CICLO
+      </a>
+      <div class="links">
+        <a href="#como">Cómo funciona</a>
+        <a href="#modelos">Modelos</a>
+        <a href="#origen">Material reciclado</a>
+        <a href="#equipo">Equipo</a>
+      </div>
+      <a class="btn small" href="#contacto">Contáctanos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Relojes inteligentes por piezas</span>
+      <h1>Cambias la pieza,<br><em>no el reloj.</em></h1>
+      <p class="lead">Relojes inteligentes hechos con material reciclado. Caja, esfera, correa y batería se cambian por separado: si algo se rompe o te cansas de cómo se ve, cambias solo esa pieza.</p>
+      <div class="ctas">
+        <a class="btn" href="#modelos">Ver modelos <span class="arrow">→</span></a>
+        <a class="btn light" href="#contacto">Pedir cita de reparación</a>
+      </div>
+    </div>
+
+    <div class="hero-art reveal" aria-label="Reloj CICLO desmontado en sus cuatro piezas">
+      <div class="disc"></div>
+      <svg viewBox="0 0 300 360" role="img" aria-hidden="true">
+        <g class="piece p-top"><rect x="105" y="4" width="90" height="108" rx="22" fill="#262826"/></g>
+        <g class="piece p-bot"><rect x="105" y="248" width="90" height="108" rx="22" fill="#262826"/>
+          <g fill="#3a3c3a"><circle cx="150" cy="292" r="5"/><circle cx="150" cy="312" r="5"/><circle cx="150" cy="332" r="5"/></g></g>
+        <rect x="54" y="84" width="192" height="192" rx="52" fill="#2E302E" stroke="#3E403E" stroke-width="3"/>
+        <g class="piece p-dial"><rect x="70" y="100" width="160" height="160" rx="40" fill="#0A0A0A"/>
+          <circle cx="150" cy="180" r="54" fill="none" stroke="#2C3514" stroke-width="13"/>
+          <circle cx="150" cy="180" r="54" fill="none" stroke="var(--clay)" stroke-width="13" stroke-dasharray="270 70" stroke-linecap="round" transform="rotate(-90 150 180)"/>
+          <circle cx="150" cy="180" r="38" fill="none" stroke="#3A2416" stroke-width="12"/>
+          <circle cx="150" cy="180" r="38" fill="none" stroke="var(--orange)" stroke-width="12" stroke-dasharray="190 50" stroke-linecap="round" transform="rotate(-90 150 180)"/>
+          <circle cx="150" cy="180" r="22" fill="none" stroke="#1A3330" stroke-width="11"/>
+          <circle cx="150" cy="180" r="22" fill="none" stroke="var(--moss)" stroke-width="11" stroke-dasharray="100 40" stroke-linecap="round" transform="rotate(-90 150 180)"/></g>
+        <g class="piece p-bat"><rect x="244" y="158" width="12" height="44" rx="5" fill="#3E403E"/></g>
+      </svg>
+      <span class="chip c1">Caja de <b>aluminio reciclado</b></span>
+      <span class="chip c2">Esfera de <b>plástico marino</b></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="strip reveal">
+      <ul>
+        <li><span>4</span>piezas que se cambian por separado</li>
+        <li><span>100&nbsp;%</span>venta online, directa a ti</li>
+        <li><span>4</span>modelos para cada plan</li>
+        <li><span>1</span>reloj que te dura años</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="como">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="eyebrow">Cómo funciona</span>
+          <h2>Cuatro piezas.<br>Un reloj para años.</h2>
+        </div>
+        <p class="lead">Un reloj inteligente suele acabar en la basura por un solo fallo: una correa rota, una batería cansada, una esfera rayada. El nuestro no.</p>
+      </div>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" rx="6" fill="none" stroke="var(--clay)" stroke-width="2.4"/></svg></div>
+          <div class="n">01 · Caja</div><h3>El corazón</h3>
+          <p>De aluminio reciclado. Elige el modelo que encaja con tu día a día.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="9" fill="none" stroke="var(--clay)" stroke-width="2.4"/><path d="M13 8v5l3 2" stroke="var(--clay)" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="n">02 · Esfera</div><h3>Tu estilo</h3>
+          <p>Diseños hechos con plástico recogido del mar o madera recuperada.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="8" y="2" width="10" height="22" rx="4" fill="none" stroke="var(--clay)" stroke-width="2.4"/><path d="M8 9h10M8 17h10" stroke="var(--clay)" stroke-width="2"/></svg></div>
+          <div class="n">03 · Correa</div><h3>Para cada plan</h3>
+          <p>Algodón reciclado, cuero vegano o neopreno para entrenar.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="7" width="18" height="12" rx="3" fill="none" stroke="var(--clay)" stroke-width="2.4"/><rect x="21.5" y="10.5" width="2.5" height="5" rx="1" fill="var(--clay)"/><rect x="6" y="10" width="7" height="6" rx="1.5" fill="var(--clay)"/></svg></div>
+          <div class="n">04 · Batería</div><h3>Sin tirar nada</h3>
+          <p>Cuando se gasta, cambias la batería y sigues con tu reloj.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="quote reveal">
+      <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <p>Si se te rompe la correa,<br>¿por qué ibas a <em>tirar el reloj entero?</em></p>
+      <small>Por eso existe CICLO.</small>
+    </div>
+  </div>
+
+  <section id="modelos">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="eyebrow">Modelos y piezas</span>
+          <h2>Combínalo<br>como quieras.</h2>
+        </div>
+        <p class="lead">Elige el modelo y vístelo con la correa y la esfera que te gusten. Lo vendemos directamente en nuestra tienda online, sin intermediarios.</p>
+      </div>
+
+      <div class="models">
+        <article class="model reveal">
+          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#262826;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="info"><div><h3>CICLO One</h3><p>El de todos los días.</p></div><span class="price">149&nbsp;€</span></div>
+        </article>
+        <article class="model reveal">
+          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#F08A4B;--case:#3A3C3A;--dial:#0A0A0A;--hand:#F08A4B"><use href="#reloj"/></svg></div>
+          <div class="info"><div><h3>One Sport</h3><p>Para correr, el gimnasio y el pulso.</p></div><span class="price">169&nbsp;€</span></div>
+        </article>
+        <article class="model reveal">
+          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#1E1F1E;--case:#5F605D;--dial:#0A0A0A;--hand:#7FD3C7"><use href="#reloj"/></svg></div>
+          <div class="info"><div><h3>CICLO Pro</h3><p>Más funciones y la caja más resistente.</p></div><span class="price">229&nbsp;€</span></div>
+        </article>
+        <article class="model reveal">
+          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#7FD3C7;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="info"><div><h3>CICLO Kids</h3><p>Ligero y sencillo, para los peques.</p></div><span class="price">89&nbsp;€</span></div>
+        </article>
+      </div>
+
+      <div class="parts">
+        <div class="part reveal">
+          <h3>Correas</h3>
+          <ul>
+            <li><span><i class="sw" style="background:#D8CBB3"></i>Algodón reciclado</span><b>19 €</b></li>
+            <li><span><i class="sw" style="background:#2E2C27"></i>Neopreno reciclado</span><b>22 €</b></li>
+            <li><span><i class="sw" style="background:#8A5A3C"></i>Cuero vegano</span><b>25 €</b></li>
+          </ul>
+        </div>
+        <div class="part reveal">
+          <h3>Esferas</h3>
+          <ul>
+            <li><span><i class="sw" style="background:#4F7F95"></i>Océano · plástico marino</span><b>29 €</b></li>
+            <li><span><i class="sw" style="background:#7A6A4F"></i>Bosque · madera recuperada</span><b>32 €</b></li>
+          </ul>
+        </div>
+        <div class="part reveal">
+          <h3>Recambios</h3>
+          <ul>
+            <li><span><i class="sw" style="background:#5E6B4E"></i>Batería de recambio</span><b>18 €</b></li>
+            <li><span><i class="sw" style="background:#C6613F"></i>Kit de reparación</span><b>15 €</b></li>
+          </ul>
+        </div>
+      </div>
+      <p class="soon reveal"><b>Muy pronto</b> Diseña tu reloj en 3D y elige solo entre las piezas que tenemos en ese momento.</p>
+    </div>
+  </section>
+
+  <section id="origen" style="background:var(--wash)">
+    <div class="wrap origin">
+      <div class="reveal">
+        <span class="eyebrow">Material reciclado</span>
+        <h2>Sabrás de dónde sale cada pieza.</h2>
+        <p class="lead">Queremos que puedas ver de qué está hecho tu reloj y de dónde viene el material. Lo estamos construyendo junto con el seguimiento de cada pieza en nuestro almacén.</p>
+      </div>
+      <div class="trace reveal">
+        <ol>
+          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay)">C</span><div><b>Caja</b><small>La base del reloj</small></div><span class="from">Aluminio reciclado</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss)">E</span><div><b>Esfera Océano</b><small>Azul mar</small></div><span class="from">Plástico marino</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss)">E</span><div><b>Esfera Bosque</b><small>Vetas de madera</small></div><span class="from">Madera recuperada</span></li>
+          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay)">R</span><div><b>Correas</b><small>Tres materiales</small></div><span class="from">Algodón y neopreno</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipo">
+    <div class="wrap">
+      <div class="head reveal">
+        <div>
+          <span class="eyebrow">Quiénes somos</span>
+          <h2>Un equipo pequeño<br>en A Coruña.</h2>
+        </div>
+        <p class="lead">Cada uno lleva una parte del negocio, y entre los cuatro lo sacamos adelante.</p>
+      </div>
+      <div class="team">
+        <div class="person reveal"><div class="ini">C.</div><h3>Carlos Arangüena</h3><p>Redes sociales y venta online.</p></div>
+        <div class="person reveal"><div class="ini">M.</div><h3>Marcos Mariñas</h3><p>Datos, procesos y coordinación.</p></div>
+        <div class="person reveal"><div class="ini">P.</div><h3>Pablo Alfonsín</h3><p>Inversión y protección de datos.</p></div>
+        <div class="person reveal"><div class="ini">M.</div><h3>Manuel Martínez</h3><p>Experiencia del cliente y calidad.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="contacto">
+    <div class="contact reveal">
+      <div>
+        <span class="eyebrow">Contacto</span>
+        <h2>¿Se te ha roto algo?<br><em>Hablamos.</em></h2>
+        <p class="lead">Pide cita para reparar o cambiar una pieza, o pregúntanos lo que quieras. Te contestamos por correo y, si hace falta, te damos cita.</p>
+      </div>
+      <div class="side">
+        <ul>
+          <li>Respuesta por correo</li>
+          <li>Cita de reparación</li>
+          <li>Consejo sobre piezas</li>
+        </ul>
+        <a id="btn-contacto" class="btn" href="#contacto">Contáctanos <span class="arrow">→</span></a>
+        <p id="nota-contacto" class="note"></p>
+        <small>¿Quieres enterarte de los modelos y piezas nuevas?</small>
+        <form id="form-novedades" class="news">
+          <input type="email" name="email" placeholder="Tu correo" required aria-label="Tu correo">
+          <button class="btn" type="submit">Avísame</button>
+        </form>
+        <p id="nota-novedades" class="note"></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña</span>
+      <span>Proyecto académico del Grupo 10 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="bot-btn" id="bot-btn" aria-label="Abrir el asistente">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+</button>
+<div class="bot" id="bot" role="dialog" aria-label="Asistente de CICLO">
+  <div class="bot-head"><div><b>Asistente CICLO</b><small>Piezas, reparaciones y pedidos</small></div><button class="x" id="bot-x" aria-label="Cerrar">×</button></div>
+  <div class="bot-msgs" id="bot-msgs"></div>
+  <form class="bot-form" id="bot-form"><input id="bot-in" placeholder="Escribe tu pregunta" autocomplete="off"><button>Enviar</button></form>
+</div>
+
+<script>
+  /* ===== Conexiones con automatizaciones (n8n u otras) =====
+     Pega aquí la URL de cada una cuando esté lista. Vacía = "muy pronto". */
+  const CONEXIONES = {
+    formularioContacto: "https://uiemmc.app.n8n.cloud/form/ciclo-contacto-web",      // flujo «CICLO · Contacto web»
+    webhookNovedades:   "",                                                          // pendiente: flujo que guarde { email } en una hoja
+    webhookChat:        "https://uiemmc.app.n8n.cloud/webhook/ciclo-asistente-web/chat" // flujo «CICLO · Asistente web»
+  };
+
+  // Contáctanos
+  const btn = document.getElementById("btn-contacto"), nota = document.getElementById("nota-contacto");
+  if (CONEXIONES.formularioContacto) { btn.href = CONEXIONES.formularioContacto; btn.target = "_blank"; btn.rel = "noopener"; }
+  else btn.addEventListener("click", e => { e.preventDefault(); nota.textContent = "El formulario de contacto estará disponible muy pronto."; });
+
+  // Novedades por correo
+  const fn = document.getElementById("form-novedades"), nn = document.getElementById("nota-novedades");
+  fn.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!CONEXIONES.webhookNovedades) { nn.textContent = "Muy pronto podrás apuntarte."; return; }
+    try {
+      await fetch(CONEXIONES.webhookNovedades, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: fn.email.value }) });
+      nn.textContent = "¡Hecho! Te avisaremos."; fn.reset();
+    } catch { nn.textContent = "No se ha podido enviar. Prueba más tarde."; }
+  });
+
+  // Asistente (chatbot)
+  const bot = document.getElementById("bot"), msgs = document.getElementById("bot-msgs"), inp = document.getElementById("bot-in");
+  const sesion = Math.random().toString(36).slice(2);
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const pinta = (t, quien) => {
+    const d = document.createElement("div"); d.className = "msg " + quien;
+    d.innerHTML = esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+    msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d;
+  };
+  let saludado = false;
+  const abre = (abrir) => { bot.classList.toggle("open", abrir); if (abrir && !saludado) { pinta("¡Hola! Soy el asistente de CICLO. Pregúntame por modelos, piezas o reparaciones.", "b"); saludado = true; } if (abrir) inp.focus(); };
+  document.getElementById("bot-btn").onclick = () => abre(!bot.classList.contains("open"));
+  document.getElementById("bot-x").onclick = () => abre(false);
+  document.getElementById("bot-form").addEventListener("submit", async e => {
+    e.preventDefault(); const t = inp.value.trim(); if (!t) return; pinta(t, "u"); inp.value = "";
+    if (!CONEXIONES.webhookChat) { pinta("Todavía estoy en pruebas. De momento, escríbenos desde «Contáctanos».", "b"); return; }
+    const espera = pinta("Escribiendo…", "b"); espera.style.opacity = ".6";
+    try {
+      const r = await fetch(CONEXIONES.webhookChat, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "sendMessage", sessionId: sesion, chatInput: t }) });
+      const j = await r.json(); espera.remove(); pinta(j.output || j.text || "No te he entendido, ¿puedes repetirlo?", "b");
+    } catch { espera.remove(); pinta("Ahora mismo no puedo responder. Prueba más tarde.", "b"); }
+  });
+
+  // Aparición suave al hacer scroll
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+    items.forEach(el => io.observe(el));
+  } else items.forEach(el => el.classList.add("in"));
+</script>
+</body>
+</html>
