@@ -9,7 +9,14 @@
 <link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fuentes sin bloquear: la web se pinta al momento con la letra del sistema y cambia cuando llegan (aunque no haya internet) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap"></noscript>
+<script>
+  // Solo si el navegador sabe avisar al bajar, los bloques empiezan escondidos para aparecer.
+  // Sin esto (vista previa, impresión, sin JavaScript) la web se ve entera desde el principio.
+  if ("IntersectionObserver" in window) document.documentElement.classList.add("js-reveal");
+</script>
 <style>
   /* Colores de la presentación de la S07 */
   :root{
@@ -37,6 +44,7 @@
   .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.01em}
   .logo-mark{width:26px;height:26px}
   .links{display:flex;gap:28px;font-size:15px}
+  .menu-btn{display:none;width:44px;height:44px;place-items:center;margin-left:auto;background:none;border:1px solid var(--hair);border-radius:999px;color:var(--ink);cursor:pointer}
   .links a{text-decoration:none;color:var(--ink-soft);transition:color .2s}
   .links a:hover{color:var(--ink)}
 
@@ -64,12 +72,7 @@
   /* La foto entra suave cuando la portada aparece en pantalla (clase .in del scroll) */
   .hero-art.in .hero-product{animation:hero-product-in .9s cubic-bezier(.2,.8,.2,1) backwards}
   @keyframes hero-product-in{from{opacity:0;transform:scale(1.035)}}
-  .hero-art.in .chip{animation:aparece .45s ease-out .6s backwards}
   @keyframes aparece{from{opacity:0;transform:translateY(6px)}}
-  .chip{position:absolute;background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-  .chip b{color:var(--clay)}
-  .chip.c1{top:9%;left:7%}
-  .chip.c2{bottom:11%;right:7%}
 
   /* Franja de valores */
   .strip{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:40px}
@@ -90,15 +93,14 @@
 
   /* Fotos de producto: mismo formato que el archivo (11:10), sin recortar ni deformar */
   .photo{display:block;width:100%;height:auto;aspect-ratio:11/10;object-fit:contain;background:#121212}
-  .step .photo{border-radius:14px;margin-bottom:20px}
-  /* I6 e I10 traen margen oscuro arriba y abajo: el 16:9 solo quita ese margen (el producto ocupa del 20 al 78 % de la altura) */
-  .photo.wide{aspect-ratio:16/9;object-fit:cover}
-  .gallery{display:grid;gap:16px}
-  .gallery.two{grid-template-columns:repeat(2,1fr);margin-bottom:16px}
-  .gallery.three{grid-template-columns:repeat(3,1fr);margin-top:56px}
-  .gallery figure{margin:0;background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden}
-  .gallery figcaption{padding:14px 20px 18px;font-size:14.5px;color:var(--ink-soft)}
-  .gallery figcaption b{display:block;color:var(--ink);font-size:15.5px}
+  .step{overflow:hidden}
+  .step .photo{aspect-ratio:1/1;object-fit:cover;width:calc(100% + 52px);max-width:none;margin:-26px -26px 22px;border-radius:0} /* la foto llena la parte de arriba de la tarjeta */
+  /* Materiales: una foto por tarjeta, a sangre (sin marco dentro de la tarjeta) */
+  .materials{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+  .materials figure{margin:0;background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden}
+  .materials img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+  .materials figcaption{padding:14px 18px 18px;font-size:14.5px;color:var(--ink-soft)}
+  .materials figcaption b{display:block;color:var(--ink);font-size:15.5px}
   .proto-note{margin:14px 0 0;font-size:13px;color:var(--ink-soft)}
 
   /* Cita grande */
@@ -113,7 +115,15 @@
   .quote .ring.r3{right:50px;top:50px;width:60px;height:60px;border-width:14px;border-color:var(--moss)}
 
   /* Modelos */
-  .models{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .models{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .model.destacado{grid-column:1/-1;display:grid;grid-template-columns:1.1fr .9fr;grid-template-rows:1fr auto;align-items:stretch}
+  .model.destacado .pic{grid-row:1/3;aspect-ratio:auto;min-height:340px}
+  .model.destacado .pic svg{width:38%}
+  .model.destacado .info{grid-column:2;grid-row:1;align-self:end;padding:32px 32px 8px}
+  .model.destacado .info h3{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .model.destacado .strap-picker{grid-column:2;grid-row:2;padding:8px 32px 32px}
+  .uso{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);margin-bottom:4px}
+  .strap-name{font-size:13px;color:var(--ink-soft);min-width:9.5em}
   .model{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden;transition:transform .3s ease,box-shadow .3s}
   .model:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
   .model .pic{aspect-ratio:1/1;background:var(--wash);display:grid;place-items:center}
@@ -169,6 +179,24 @@
   .news button{padding:12px 18px;font-size:15px}
   .side small{color:var(--ink-soft);font-size:13.5px}
 
+  /* Popup de bienvenida (10 %) */
+  .dlg{width:min(460px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:0;border:1px solid var(--hair);border-radius:26px;background:var(--card);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .dlg[open]{animation:dlg-in .25s cubic-bezier(.2,.8,.2,1)}
+  @keyframes dlg-in{from{opacity:0;transform:translateY(10px) scale(.98)}}
+  .dlg::backdrop{background:rgba(8,8,8,.6)}
+  .dlg-form{display:grid;gap:14px;padding:30px 28px 24px;position:relative}
+  .dlg-form h2{font-size:clamp(26px,6vw,34px);margin:4px 0 0}
+  .dlg-texto{margin:0;color:var(--ink-soft);font-size:15.5px}
+  .dlg-campo{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+  .dlg-campo input{background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:14px;padding:13px 14px;font:inherit;font-size:16px}
+  .dlg-form .btn{justify-content:center}
+  .dlg-x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--ink-soft);font-size:26px;line-height:1;cursor:pointer}
+  .dlg-x:hover{background:var(--wash);color:var(--ink)}
+  .dlg-no{background:none;border:0;color:var(--ink-soft);font:inherit;font-size:15px;text-decoration:underline;cursor:pointer;min-height:44px}
+  .ok-legal{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);line-height:1.45}
+  .ok-legal input{width:20px;height:20px;margin:0;flex:0 0 20px;accent-color:var(--clay)}
+  .ok-legal a{color:var(--ink)}
+
   /* Asistente (chatbot) */
   .bot-btn{position:fixed;right:20px;bottom:20px;z-index:20;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;background:var(--clay);color:#121212;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.45);transition:transform .2s}
   .bot-btn:hover{transform:scale(1.06)}
@@ -191,12 +219,15 @@
   footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--hair);padding-top:28px}
 
   /* Aparición suave al hacer scroll */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+  .js-reveal .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .js-reveal .reveal.in{opacity:1;transform:none}
+  @media print{.js-reveal .reveal{opacity:1;transform:none}}
 
   /* CICLO · interacciones A2-A4 */
-  .strap-picker{display:flex;gap:9px;align-items:center;padding:0 20px 16px}
+  .strap-picker{display:flex;gap:12px;align-items:center;padding:0 20px 16px}
   .strap-swatch{width:22px;height:22px;border-radius:50%;border:2px solid rgba(242,241,236,.24);background:var(--swatch);cursor:pointer;padding:0;transition:transform .2s,border-color .2s}
+  .strap-swatch{position:relative}
+  .strap-swatch::after{content:"";position:absolute;inset:-6px;border-radius:50%} /* zona táctil de 34 px sin cambiar el dibujo */
   .strap-swatch:hover{transform:scale(1.12)}
   .strap-swatch.active{border-color:var(--clay);outline:2px solid var(--clay);outline-offset:2px}
   .loader-ring{width:27px;height:27px;flex:0 0 27px;border:3px solid rgba(212,242,92,.18);border-top-color:var(--clay);border-right-color:var(--clay);border-radius:50%;animation:ciclo-spin 1.4s linear infinite}
@@ -211,24 +242,37 @@
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
     .btn,.step,.model,.strap-swatch{transition:none}
-    .hero-art .hero-product,.hero-art .chip,.loader-ring{animation:none}
+    .hero-art .hero-product,.loader-ring,.dlg{animation:none}
   }
 
   @media (max-width:900px){
     .hero,.origin,.contact{grid-template-columns:1fr}
     .hero{padding-top:44px;gap:36px}
+    .hero-art{width:100%;max-width:520px;justify-self:center} /* en tablet la foto no pasa del alto de la pantalla */
     .steps,.models,.team{grid-template-columns:repeat(2,1fr)}
-    .gallery.three{grid-template-columns:repeat(2,1fr)}
+    .materials{grid-template-columns:repeat(2,1fr)}
     .parts{grid-template-columns:1fr}
     .strip ul{grid-template-columns:repeat(2,1fr)}
     .links{display:none}
+    .menu-btn{display:grid}
+    nav.abierto .links{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--hair);padding:6px 24px 14px}
+    nav.abierto .links a{padding:12px 0;font-size:17px;color:var(--ink)}
     section{padding:76px 0}
     .quote{padding:52px 30px;border-radius:28px}
     .contact{padding:44px 28px;border-radius:28px}
   }
   @media (max-width:520px){
     .wrap{padding:0 16px}
-    .steps,.models,.team,.gallery.two,.gallery.three{grid-template-columns:1fr}
+    .trace{padding:6px 20px}
+    .trace li{grid-template-columns:44px 1fr;row-gap:8px}
+    .trace .from{grid-column:2;justify-self:start}
+    .steps,.models,.team{grid-template-columns:1fr}
+    .model.destacado{grid-template-columns:1fr;grid-template-rows:auto}
+    .model.destacado .pic,.model.destacado .info,.model.destacado .strap-picker{grid-column:auto;grid-row:auto}
+    .model.destacado .pic{min-height:0;aspect-ratio:16/10;width:100%}
+    .model.destacado .info{padding:20px 22px 6px}
+    .model.destacado .strap-picker{padding:0 20px 18px}
+    .strap-name{min-width:0;margin-right:auto}
     .model .pic{aspect-ratio:16/10}
     .model .pic svg{width:36%}
   }
@@ -256,7 +300,8 @@
         <svg class="logo-mark" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="48 15" stroke-linecap="round" transform="rotate(-60 13 13)"/><circle cx="13" cy="13" r="3.4" fill="var(--clay)"/></svg>
         CICLO
       </a>
-      <div class="links">
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-secciones" aria-label="Abrir el menú"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="links" id="menu-secciones">
         <a href="#como">Cómo funciona</a>
         <a href="#modelos">Modelos</a>
         <a href="#origen">Material reciclado</a>
@@ -280,19 +325,17 @@
     </div>
 
     <div class="hero-art reveal">
-      <img class="hero-product" src="img/hero.webp" alt="Reloj inteligente CICLO desmontado en sus piezas: pantalla, esfera azul de plástico marino, caja de aluminio, batería y correa de tela" width="1000" height="1250" fetchpriority="high" decoding="async">
-      <span class="chip c1">Caja de <b>aluminio reciclado</b></span>
-      <span class="chip c2">Esfera de <b>plástico marino</b></span>
+      <img class="hero-product" src="img/fotos/portada.webp" alt="Reloj CICLO montado, con correa naranja, en la muñeca de una persona que corre junto al mar al atardecer" width="453" height="566" fetchpriority="high" decoding="async">
     </div>
   </div>
 
   <div class="wrap">
     <div class="strip reveal">
       <ul>
-        <li><span class="counter" data-count="4">0</span>piezas que se cambian por separado</li>
-        <li><span><b class="counter" data-count="100">0</b>&nbsp;%</span>venta online, directa a ti</li>
-        <li><span class="counter" data-count="4">0</span>modelos para cada plan</li>
-        <li><span class="counter" data-count="1">0</span>reloj que te dura años</li>
+        <li><span class="counter" data-count="4">4</span>piezas que se cambian por separado</li>
+        <li><span><b class="counter" data-count="100">100</b>&nbsp;%</span>venta online, directa a ti</li>
+        <li><span class="counter" data-count="4">4</span>modelos para cada plan</li>
+        <li><span class="counter" data-count="1">1</span>reloj que te dura años</li>
       </ul>
     </div>
   </div>
@@ -308,22 +351,22 @@
       </div>
       <div class="steps">
         <article class="step reveal">
-          <img class="photo" src="img/recursos/I2-caja.webp" alt="Caja de reloj inteligente de aluminio cepillado, vacía, sobre fondo oscuro" width="1100" height="1000" loading="lazy" decoding="async">
+          <img class="photo" src="img/fotos/pieza-caja.webp" alt="Caja de reloj inteligente de aluminio cepillado, vacía, sobre fondo oscuro" width="830" height="830" loading="lazy" decoding="async">
           <div class="n">01 · Caja</div><h3>El corazón</h3>
           <p>De aluminio reciclado. Elige el modelo que encaja con tu día a día.</p>
         </article>
         <article class="step reveal">
-          <img class="photo" src="img/recursos/I3-esfera-mar.webp" alt="Esfera cuadrada hecha con trocitos de plástico azul y turquesa" width="1100" height="1000" loading="lazy" decoding="async">
+          <img class="photo" src="img/fotos/pieza-esfera.webp" alt="Esfera cuadrada hecha con trocitos de plástico azul y turquesa" width="830" height="830" loading="lazy" decoding="async">
           <div class="n">02 · Esfera</div><h3>Tu estilo</h3>
           <p>Diseños hechos con plástico recogido del mar o madera recuperada.</p>
         </article>
         <article class="step reveal">
-          <img class="photo" src="img/recursos/I4-correas.webp" alt="Tres correas: tela beige, neopreno negro y cuero vegano marrón" width="1100" height="1000" loading="lazy" decoding="async">
+          <img class="photo" src="img/fotos/pieza-correas.webp" alt="Tres correas: tela beige, neopreno negro y cuero vegano marrón" width="830" height="830" loading="lazy" decoding="async">
           <div class="n">03 · Correa</div><h3>Para cada plan</h3>
           <p>Algodón reciclado, cuero vegano o neopreno para entrenar.</p>
         </article>
         <article class="step reveal">
-          <img class="photo" src="img/recursos/I5-bateria.webp" alt="Módulo de batería rectangular saliendo de la caja del reloj" width="1100" height="1000" loading="lazy" decoding="async">
+          <img class="photo" src="img/fotos/pieza-bateria.webp" alt="Módulo de batería rectangular saliendo de la caja del reloj" width="830" height="830" loading="lazy" decoding="async">
           <div class="n">04 · Batería</div><h3>Sin tirar nada</h3>
           <p>Cuando se gasta, cambias la batería y sigues con tu reloj.</p>
         </article>
@@ -349,51 +392,46 @@
         <p class="lead">Elige el modelo y vístelo con la correa y la esfera que te gusten. Lo vendemos directamente en nuestra tienda online, sin intermediarios.</p>
       </div>
 
-      <div class="gallery two">
-        <figure class="reveal"><img class="photo wide" src="img/recursos/I10-cuatro-modelos.webp" alt="Los cuatro relojes CICLO en fila, con correas beige, naranja, negra y turquesa" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>La gama</b>One, One Sport, Pro y Kids: misma idea, cuatro usos.</figcaption></figure>
-        <figure class="reveal"><img class="photo wide" src="img/recursos/I6-one-sport-lifestyle.webp" alt="Persona corriendo junto al mar con un reloj CICLO de correa naranja" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>One Sport</b>Pensado para correr, el gimnasio y el pulso.</figcaption></figure>
-      </div>
-
       <div class="models">
-        <article class="model reveal">
+        <article class="model destacado reveal">
           <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#262826;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
-          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa"><span class="strap-name" aria-live="polite"></span>
             <button class="strap-swatch active" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="true"></button>
             <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
           </div>
-          <div class="info"><div><h3>CICLO One</h3><p>El de todos los días.</p></div><span class="price">149&nbsp;€</span></div>
+          <div class="info"><div><span class="uso">Diario</span><h3>CICLO One</h3><p>El de todos los días.</p></div><span class="price">149&nbsp;€</span></div>
         </article>
         <article class="model reveal">
           <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#F08A4B;--case:#3A3C3A;--dial:#0A0A0A;--hand:#F08A4B"><use href="#reloj"/></svg></div>
-          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa"><span class="strap-name" aria-live="polite"></span>
             <button class="strap-swatch" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
             <button class="strap-swatch active" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="true"></button>
             <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
           </div>
-          <div class="info"><div><h3>One Sport</h3><p>Para correr, el gimnasio y el pulso.</p></div><span class="price">169&nbsp;€</span></div>
+          <div class="info"><div><span class="uso">Deporte</span><h3>One Sport</h3><p>Para correr, el gimnasio y el pulso.</p></div><span class="price">169&nbsp;€</span></div>
         </article>
         <article class="model reveal">
           <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#262826;--case:#5F605D;--dial:#0A0A0A;--hand:#7FD3C7"><use href="#reloj"/></svg></div>
-          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa"><span class="strap-name" aria-live="polite"></span>
             <button class="strap-swatch active" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="true"></button>
             <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
           </div>
-          <div class="info"><div><h3>CICLO Pro</h3><p>Más funciones y la caja más resistente.</p></div><span class="price">229&nbsp;€</span></div>
+          <div class="info"><div><span class="uso">Pro</span><h3>CICLO Pro</h3><p>Más funciones y la caja más resistente.</p></div><span class="price">229&nbsp;€</span></div>
         </article>
         <article class="model reveal">
           <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#7FD3C7;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
-          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa"><span class="strap-name" aria-live="polite"></span>
             <button class="strap-swatch" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
             <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
             <button class="strap-swatch active" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="true"></button>
           </div>
-          <div class="info"><div><h3>CICLO Kids</h3><p>Ligero y sencillo, para los peques.</p></div><span class="price">89&nbsp;€</span></div>
+          <div class="info"><div><span class="uso">Kids</span><h3>CICLO Kids</h3><p>Ligero y sencillo, para los peques.</p></div><span class="price">89&nbsp;€</span></div>
         </article>
       </div>
 
@@ -442,10 +480,11 @@
       </div>
     </div>
     <div class="wrap">
-      <div class="gallery three">
-        <figure class="reveal"><img class="photo" src="img/recursos/I7-materiales-reciclados.webp" alt="Cuatro montones de material: virutas de aluminio, trozos de plástico azul, piezas de madera y fibras de algodón" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>De dónde partimos</b>Aluminio, plástico marino, madera y algodón.</figcaption></figure>
-        <figure class="reveal"><img class="photo" src="img/recursos/I8-esfera-madera.webp" alt="Esfera cuadrada de madera con vetas marcadas" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>Esfera Bosque</b>Madera recuperada.</figcaption></figure>
-        <figure class="reveal"><img class="photo" src="img/recursos/I9-correa-neopreno.webp" alt="Primer plano de una correa negra de neopreno con textura" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>Correa de neopreno</b>Para entrenar.</figcaption></figure>
+      <div class="materials">
+        <figure class="reveal"><img src="img/fotos/material-aluminio.webp" alt="Primer plano del aluminio cepillado de la caja, con sus vetas finas" width="460" height="345" loading="lazy" decoding="async"><figcaption><b>Aluminio reciclado</b>La caja</figcaption></figure>
+        <figure class="reveal"><img src="img/fotos/material-plastico.webp" alt="Primer plano de la esfera Océano: fragmentos de plástico azul y turquesa" width="240" height="180" loading="lazy" decoding="async"><figcaption><b>Plástico marino</b>Esfera Océano</figcaption></figure>
+        <figure class="reveal"><img src="img/fotos/material-madera.webp" alt="Primer plano de la veta de la esfera Bosque, en madera de tono cálido" width="280" height="210" loading="lazy" decoding="async"><figcaption><b>Madera recuperada</b>Esfera Bosque</figcaption></figure>
+        <figure class="reveal"><img src="img/fotos/material-correa.webp" alt="Primer plano del tejido de una correa negra de neopreno" width="440" height="330" loading="lazy" decoding="async"><figcaption><b>Neopreno reciclado</b>Correa para entrenar</figcaption></figure>
       </div>
       <p class="proto-note reveal">Imágenes de prototipo creadas para el proyecto. No son fotos de un producto fabricado.</p>
     </div>
@@ -490,11 +529,12 @@
         </form>
         <div class="side" style="margin-top:22px">
           <small>¿Quieres enterarte de los modelos y piezas nuevas?</small>
-          <form id="form-novedades" class="news">
-            <input type="email" name="email" placeholder="Tu correo" required aria-label="Tu correo">
+          <form id="form-novedades" class="news" novalidate>
+            <input type="email" name="email" placeholder="Tu correo" required aria-label="Tu correo" autocomplete="email">
             <button class="btn" type="submit">Avísame</button>
           </form>
-          <p id="nota-novedades" class="note"></p>
+          <label class="ok-legal"><input type="checkbox" name="consentimiento" form="form-novedades" required> <span>Acepto recibir correos de CICLO y la <a href="privacidad.html">política de privacidad</a>.</span></label>
+          <p id="nota-novedades" class="note" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>
@@ -504,10 +544,24 @@
   <div class="wrap">
     <div class="row">
       <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña</span>
-      <span>Proyecto académico del Grupo 10 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales.</span>
+      <span>Proyecto académico del Grupo 6 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales.</span>
     </div>
   </div>
 </footer>
+
+<dialog class="dlg" id="bienvenida" aria-labelledby="dlg-titulo" aria-describedby="dlg-texto">
+  <form class="dlg-form" id="form-bienvenida" novalidate>
+    <button class="dlg-x" type="button" data-cerrar aria-label="Cerrar">×</button>
+    <span class="eyebrow">Bienvenida</span>
+    <h2 id="dlg-titulo">Tu primer CICLO,<br><em>un 10&nbsp;% menos.</em></h2>
+    <p id="dlg-texto" class="dlg-texto">Suscríbete para descubrir nuevos modelos, materiales y novedades, y llévate un 10&nbsp;% de descuento en tu primer pedido.</p>
+    <label class="dlg-campo">Tu correo<input type="email" name="email" required autocomplete="email" placeholder="tu@correo.com" autofocus></label>
+    <label class="ok-legal"><input type="checkbox" name="consentimiento" required> <span>Acepto recibir correos de CICLO y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
+    <button class="btn" type="submit" id="btn-bienvenida">Quiero mi 10&nbsp;%</button>
+    <button class="dlg-no" type="button" data-cerrar>Ahora no</button>
+    <p id="nota-bienvenida" class="note" role="status" aria-live="polite"></p>
+  </form>
+</dialog>
 
 <button class="bot-btn" id="bot-btn" aria-label="Abrir el asistente">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
@@ -523,9 +577,16 @@
      Pega aquí la URL de cada una cuando esté lista. Vacía = "muy pronto". */
   const CONEXIONES = {
     webhookContacto:    "https://uiemmc.app.n8n.cloud/webhook/ciclo-contacto",       // flujo «CICLO · Contacto web»
-    webhookNovedades:   "",                                                          // pendiente: flujo que guarde { email } en una hoja
+    webhookNovedades:   "",                                                          // flujo «CICLO · Novedades» (n8n/CICLO_novedades.json): al activarlo, pegar https://uiemmc.app.n8n.cloud/webhook/ciclo-novedades
     webhookChat:        "https://uiemmc.app.n8n.cloud/webhook/ciclo-asistente-web/chat" // flujo «CICLO · Asistente web»
   };
+
+  // Menú en móvil y tablet: se abre y cierra con el botón, al elegir una sección o con Esc
+  const navEl = document.querySelector("nav"), menuBtn = document.querySelector(".menu-btn");
+  const menu = abrir => { navEl.classList.toggle("abierto", abrir); menuBtn.setAttribute("aria-expanded", String(abrir)); menuBtn.setAttribute("aria-label", abrir ? "Cerrar el menú" : "Abrir el menú"); };
+  menuBtn.addEventListener("click", () => menu(!navEl.classList.contains("abierto")));
+  document.querySelectorAll("#menu-secciones a").forEach(a => a.addEventListener("click", () => menu(false)));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") menu(false); });
 
   // Formulario de contacto (se envía desde la web a n8n)
   const fc = document.getElementById("form-contacto"), nota = document.getElementById("nota-contacto"), be = document.getElementById("btn-enviar");
@@ -545,16 +606,69 @@
     if (/cita/i.test(a.textContent)) fc.motivo.value = "Reparación o cita";
   }));
 
-  // Novedades por correo
-  const fn = document.getElementById("form-novedades"), nn = document.getElementById("nota-novedades");
-  fn.addEventListener("submit", async e => {
-    e.preventDefault();
-    if (!CONEXIONES.webhookNovedades) { nn.textContent = "Muy pronto podrás apuntarte."; return; }
-    try {
-      await fetch(CONEXIONES.webhookNovedades, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: fn.email.value }) });
-      nn.textContent = "¡Hecho! Te avisaremos."; fn.reset();
-    } catch { nn.textContent = "No se ha podido enviar. Prueba más tarde."; }
+  // ===== Novedades: el popup de bienvenida y el formulario del pie usan el mismo envío =====
+  // Se manda { email, consentimiento, origen, fecha } al flujo «CICLO · Novedades» de n8n.
+  // El descuento NO se genera aquí: no hay tienda ni sistema de cupones (ver marca/ESTADO-RECURSOS.md).
+  const suscribir = async (email, origen) => {
+    if (!CONEXIONES.webhookNovedades) return { ok: false, msg: "La suscripción todavía no está activa. Vuelve a probar en unos días." };
+    const r = await fetch(CONEXIONES.webhookNovedades, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, consentimiento: true, origen, fecha: new Date().toISOString() }) });
+    if (!r.ok) throw new Error(String(r.status));
+    return { ok: true, msg: "¡Listo! Ya estás en la lista. El 10 % será para tu primer pedido cuando abramos la tienda online." };
+  };
+  const revisa = (form, nota) => {
+    const email = form.email.value.trim(), ok = form.querySelector('[name="consentimiento"]') || document.querySelector('[form="' + form.id + '"][name="consentimiento"]');
+    if (!form.email.checkValidity() || !email) { nota.textContent = "Escribe un correo válido."; form.email.focus(); return null; }
+    if (!ok.checked) { nota.textContent = "Para apuntarte, marca la casilla de privacidad."; ok.focus(); return null; }
+    return email;
+  };
+  const conecta = (form, nota, boton, origen, alTerminar) => {
+    let enviando = false;
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      if (enviando) return;                       // evita envíos duplicados
+      const email = revisa(form, nota); if (!email) return;
+      enviando = true; boton.disabled = true; nota.textContent = "Enviando…";
+      let hecho = false;
+      try {
+        const res = await suscribir(email, origen);
+        nota.textContent = res.msg;
+        if (res.ok) { hecho = true; form.reset(); alTerminar && alTerminar(); }
+      } catch { nota.textContent = "No se ha podido enviar. Prueba de nuevo en un momento."; }
+      enviando = false; if (!hecho || origen !== "popup") boton.disabled = false;   // en el popup, tras apuntarse, el botón queda en «Apuntado ✓»
+    });
+  };
+  const fn = document.getElementById("form-novedades");
+  conecta(fn, document.getElementById("nota-novedades"), fn.querySelector("button"), "pie", () => guardaBienvenida("suscrito"));
+
+  // Popup de bienvenida: a los 7 s o al pasar el 40 % de la página, una sola vez.
+  // Si se cierra, no vuelve en 14 días; si se apunta, no vuelve más (se guarda solo en este navegador).
+  const dlg = document.getElementById("bienvenida"), fb = document.getElementById("form-bienvenida");
+  const CLAVE = "ciclo-bienvenida", DIAS = 14;
+  const leeBienvenida = () => { try { return JSON.parse(localStorage.getItem(CLAVE)); } catch { return null; } };
+  function guardaBienvenida(estado) { try { localStorage.setItem(CLAVE, JSON.stringify({ estado, fecha: Date.now() })); } catch {} }
+  const tocaMostrar = () => { const v = leeBienvenida(); return !v || (v.estado !== "suscrito" && Date.now() - v.fecha > DIAS * 864e5); };
+  const ocupado = () => document.querySelector("dialog[open]") || bot.classList.contains("open") || navEl.classList.contains("abierto")
+    || fc.contains(document.activeElement) || fn.contains(document.activeElement);
+  let lanzado = false;
+  const intenta = () => {
+    if (lanzado || !tocaMostrar() || typeof dlg.showModal !== "function") return;
+    if (ocupado()) { setTimeout(intenta, 4000); return; }   // no tapa otro modal ni un formulario a medio rellenar
+    lanzado = true; dlg.showModal();
+  };
+  dlg.querySelectorAll("[data-cerrar]").forEach(b => b.addEventListener("click", () => dlg.close("cerrado")));
+  dlg.addEventListener("close", () => { if ((leeBienvenida() || {}).estado !== "suscrito") guardaBienvenida("cerrado"); });
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close("cerrado"); });   // clic fuera = cerrar
+  conecta(fb, document.getElementById("nota-bienvenida"), document.getElementById("btn-bienvenida"), "popup", () => {
+    guardaBienvenida("suscrito"); dlg.returnValue = "suscrito";
+    const b = document.getElementById("btn-bienvenida"); b.textContent = "Apuntado ✓"; b.disabled = true;
+    fb.querySelector('[data-cerrar].dlg-no').textContent = "Cerrar";
   });
+  if (tocaMostrar()) {
+    setTimeout(intenta, 7000);
+    const alBajar = () => { if (scrollY > (document.documentElement.scrollHeight - innerHeight) * 0.4) { removeEventListener("scroll", alBajar); intenta(); } };
+    addEventListener("scroll", alBajar, { passive: true });
+  }
 
   // Asistente (chatbot)
   const bot = document.getElementById("bot"), msgs = document.getElementById("bot-msgs"), inp = document.getElementById("bot-in");
@@ -582,10 +696,12 @@
 
   // A2 · Selector de correas: cambia el color del SVG del modelo elegido
   document.querySelectorAll(".model").forEach(card => {
-    const watch = card.querySelector(".model-watch");
+    const watch = card.querySelector(".model-watch"), nombre = card.querySelector(".strap-name");
+    const rotula = sw => { if (nombre) nombre.textContent = "Correa: " + sw.getAttribute("aria-label"); };
+    rotula(card.querySelector(".strap-swatch.active"));
     card.querySelectorAll(".strap-swatch").forEach(swatch => {
       swatch.addEventListener("click", () => {
-        watch.style.setProperty("--strap", swatch.dataset.color);
+        watch.style.setProperty("--strap", swatch.dataset.color); rotula(swatch);
         card.querySelectorAll(".strap-swatch").forEach(btn => {
           const active = btn === swatch;
           btn.classList.toggle("active", active);
@@ -602,13 +718,16 @@
     if (sinMovimiento) { el.textContent = el.dataset.count; return; }
     const target = Number(el.dataset.count || 0);
     const start = performance.now(), duration = 800;
-    const tick = now => {
-      const progress = Math.min((now - start) / duration, 1);
+    // Se mide con la hora real (no la del fotograma): un fotograma que llegue tarde nunca deja un número a medias.
+    const tick = () => {
+      const progress = Math.min((performance.now() - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = String(Math.round(target * eased));
       if (progress < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
+    // Si el navegador no pinta fotogramas (pestaña en segundo plano), el número acaba igual en su sitio.
+    setTimeout(() => { el.textContent = String(target); }, duration + 300);
   };
   if ("IntersectionObserver" in window) {
     const counterObserver = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -622,10 +741,14 @@
 
   // Aparición suave al hacer scroll
   const items = document.querySelectorAll(".reveal");
+  const ensenaTodo = () => items.forEach(el => el.classList.add("in"));
   if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+    let avisa = false;
+    const io = new IntersectionObserver(es => { avisa = true; es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.12 });
     items.forEach(el => io.observe(el));
-  } else items.forEach(el => el.classList.add("in"));
+    // Red de seguridad: si en 1,5 s el navegador no ha avisado nunca, se enseña todo sin animación.
+    setTimeout(() => { if (!avisa) { io.disconnect(); ensenaTodo(); } }, 1500);
+  } else ensenaTodo();
 </script>
 </body>
 </html>
