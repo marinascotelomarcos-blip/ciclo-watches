@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CICLO Watches</title>
 <meta name="description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
+<link rel="icon" type="image/svg+xml" href="marca/favicon.svg">
+<link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -57,28 +59,12 @@
   .eyebrow{letter-spacing:.14em}
   .lead{font-size:20px;color:var(--ink-soft);max-width:540px;margin:0}
   .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
-  .hero-art{position:relative;aspect-ratio:1/1.12;border-radius:32px;background:var(--wash);overflow:hidden}
-  .hero-art .disc{position:absolute;inset:auto -18% -24% auto;width:78%;aspect-ratio:1;border-radius:50%;background:var(--clay-wash)}
-  .hero-art svg{position:absolute;inset:0;margin:auto;width:82%;height:82%}
-  .piece{transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-  .hero-art:hover .p-top{transform:translateY(-16px)}
-  .hero-art:hover .p-bot{transform:translateY(16px)}
-  .hero-art:hover .p-dial{transform:translateX(-10px)}
-  .hero-art:hover .p-bat{transform:translateX(14px)}
-  /* El reloj se monta solo al cargar: la caja aparece y las piezas llegan y encajan.
-     Solo "backwards": al acabar, la animación se quita y el efecto al pasar el ratón sigue igual. */
-  .hero-art .case,.hero-art .p-dial{transform-box:fill-box;transform-origin:center}
-  .hero-art .case{animation:monta-caja .55s cubic-bezier(.2,.8,.2,1) .1s backwards}
-  .hero-art .p-top{animation:monta-arriba .6s cubic-bezier(.2,.9,.3,1.12) .22s backwards}
-  .hero-art .p-bot{animation:monta-abajo .6s cubic-bezier(.2,.9,.3,1.12) .22s backwards}
-  .hero-art .p-dial{animation:monta-esfera .6s cubic-bezier(.2,.9,.3,1.12) .36s backwards}
-  .hero-art .p-bat{animation:monta-bateria .5s cubic-bezier(.2,.9,.3,1.12) .5s backwards}
-  .hero-art .chip{animation:aparece .45s ease-out 1s backwards}
-  @keyframes monta-caja{from{opacity:0;transform:scale(.88)}}
-  @keyframes monta-arriba{from{opacity:0;transform:translateY(-120px)}}
-  @keyframes monta-abajo{from{opacity:0;transform:translateY(120px)}}
-  @keyframes monta-esfera{from{opacity:0;transform:scale(1.18)}}
-  @keyframes monta-bateria{from{opacity:0;transform:translateX(70px)}}
+  .hero-art{position:relative;aspect-ratio:4/5;border-radius:32px;background:#121212;overflow:hidden;isolation:isolate}
+  .hero-art .hero-product{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* La foto entra suave cuando la portada aparece en pantalla (clase .in del scroll) */
+  .hero-art.in .hero-product{animation:hero-product-in .9s cubic-bezier(.2,.8,.2,1) backwards}
+  @keyframes hero-product-in{from{opacity:0;transform:scale(1.035)}}
+  .hero-art.in .chip{animation:aparece .45s ease-out .6s backwards}
   @keyframes aparece{from{opacity:0;transform:translateY(6px)}}
   .chip{position:absolute;background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4)}
   .chip b{color:var(--clay)}
@@ -99,9 +85,21 @@
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .step{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);padding:26px;transition:transform .3s ease,border-color .3s}
   .step:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
-  .step .ico{width:52px;height:52px;border-radius:16px;background:var(--wash);display:grid;place-items:center;margin-bottom:22px}
   .step .n{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink-grey);text-transform:uppercase}
   .step p{margin:0;color:var(--ink-soft);font-size:15.5px}
+
+  /* Fotos de producto: mismo formato que el archivo (11:10), sin recortar ni deformar */
+  .photo{display:block;width:100%;height:auto;aspect-ratio:11/10;object-fit:contain;background:#121212}
+  .step .photo{border-radius:14px;margin-bottom:20px}
+  /* I6 e I10 traen margen oscuro arriba y abajo: el 16:9 solo quita ese margen (el producto ocupa del 20 al 78 % de la altura) */
+  .photo.wide{aspect-ratio:16/9;object-fit:cover}
+  .gallery{display:grid;gap:16px}
+  .gallery.two{grid-template-columns:repeat(2,1fr);margin-bottom:16px}
+  .gallery.three{grid-template-columns:repeat(3,1fr);margin-top:56px}
+  .gallery figure{margin:0;background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden}
+  .gallery figcaption{padding:14px 20px 18px;font-size:14.5px;color:var(--ink-soft)}
+  .gallery figcaption b{display:block;color:var(--ink);font-size:15.5px}
+  .proto-note{margin:14px 0 0;font-size:13px;color:var(--ink-soft)}
 
   /* Cita grande */
   .quote{background:var(--card);border:1px solid var(--hair);color:var(--ink);border-radius:36px;padding:80px 64px;position:relative;overflow:hidden}
@@ -148,7 +146,7 @@
   .person p{margin:0;color:var(--ink-soft);font-size:15.5px}
 
   /* Contacto */
-  .contact{background:var(--clay-wash);border-radius:36px;padding:72px 64px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  .contact{background:var(--clay-wash);border-radius:36px;padding:72px 64px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
   .contact h2{margin-top:0}
   .contact .side{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
   .contact .side ul{list-style:none;margin:0;padding:0;color:var(--ink-soft);font-size:15.5px}
@@ -156,6 +154,14 @@
   .contact .side li::before{content:"✓";color:var(--clay);font-weight:700;margin-right:10px}
   .note{font-size:14.5px;color:var(--clay);min-height:1.4em;margin:0}
 
+  .cform{display:grid;gap:14px;width:100%}
+  .cform .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .cform label{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+  .cform input,.cform select,.cform textarea{background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:14px;padding:12px 14px;font:inherit;font-size:15.5px;width:100%;resize:vertical}
+  .cform input:focus,.cform select:focus,.cform textarea:focus{outline:2px solid var(--clay);outline-offset:1px}
+  .cform .btn{justify-self:start}
+  .cform .btn[disabled]{opacity:.6;cursor:wait}
+  @media (max-width:520px){.cform .row2{grid-template-columns:1fr}}
   /* Novedades (automatización por correo) */
   .news{display:flex;gap:8px;width:100%;max-width:360px;margin-top:6px}
   .news input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:999px;padding:12px 16px;font:inherit;font-size:15px}
@@ -187,17 +193,32 @@
   /* Aparición suave al hacer scroll */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{opacity:1;transform:none}
+
+  /* CICLO · interacciones A2-A4 */
+  .strap-picker{display:flex;gap:9px;align-items:center;padding:0 20px 16px}
+  .strap-swatch{width:22px;height:22px;border-radius:50%;border:2px solid rgba(242,241,236,.24);background:var(--swatch);cursor:pointer;padding:0;transition:transform .2s,border-color .2s}
+  .strap-swatch:hover{transform:scale(1.12)}
+  .strap-swatch.active{border-color:var(--clay);outline:2px solid var(--clay);outline-offset:2px}
+  .loader-ring{width:27px;height:27px;flex:0 0 27px;border:3px solid rgba(212,242,92,.18);border-top-color:var(--clay);border-right-color:var(--clay);border-radius:50%;animation:ciclo-spin 1.4s linear infinite}
+  .loader-ring.loading{animation-duration:.65s}
+  @keyframes ciclo-spin{to{transform:rotate(360deg)}}
+  .counter{font-variant-numeric:tabular-nums}
+
+  /* Foco visible al navegar con teclado */
+  :focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
-    .piece,.btn,.step,.model{transition:none}
-    .hero-art .case,.hero-art .piece,.hero-art .chip{animation:none}
+    .btn,.step,.model,.strap-swatch{transition:none}
+    .hero-art .hero-product,.hero-art .chip,.loader-ring{animation:none}
   }
 
   @media (max-width:900px){
     .hero,.origin,.contact{grid-template-columns:1fr}
     .hero{padding-top:44px;gap:36px}
     .steps,.models,.team{grid-template-columns:repeat(2,1fr)}
+    .gallery.three{grid-template-columns:repeat(2,1fr)}
     .parts{grid-template-columns:1fr}
     .strip ul{grid-template-columns:repeat(2,1fr)}
     .links{display:none}
@@ -207,7 +228,7 @@
   }
   @media (max-width:520px){
     .wrap{padding:0 16px}
-    .steps,.models,.team{grid-template-columns:1fr}
+    .steps,.models,.team,.gallery.two,.gallery.three{grid-template-columns:1fr}
     .model .pic{aspect-ratio:16/10}
     .model .pic svg{width:36%}
   }
@@ -258,22 +279,8 @@
       </div>
     </div>
 
-    <div class="hero-art reveal" aria-label="Reloj CICLO desmontado en sus cuatro piezas">
-      <div class="disc"></div>
-      <svg viewBox="0 0 300 360" role="img" aria-hidden="true">
-        <g class="piece p-top"><rect x="105" y="4" width="90" height="108" rx="22" fill="#262826"/></g>
-        <g class="piece p-bot"><rect x="105" y="248" width="90" height="108" rx="22" fill="#262826"/>
-          <g fill="#3a3c3a"><circle cx="150" cy="292" r="5"/><circle cx="150" cy="312" r="5"/><circle cx="150" cy="332" r="5"/></g></g>
-        <rect class="case" x="54" y="84" width="192" height="192" rx="52" fill="#2E302E" stroke="#3E403E" stroke-width="3"/>
-        <g class="piece p-dial"><rect x="70" y="100" width="160" height="160" rx="40" fill="#0A0A0A"/>
-          <circle cx="150" cy="180" r="54" fill="none" stroke="#2C3514" stroke-width="13"/>
-          <circle cx="150" cy="180" r="54" fill="none" stroke="var(--clay)" stroke-width="13" stroke-dasharray="270 70" stroke-linecap="round" transform="rotate(-90 150 180)"/>
-          <circle cx="150" cy="180" r="38" fill="none" stroke="#3A2416" stroke-width="12"/>
-          <circle cx="150" cy="180" r="38" fill="none" stroke="var(--orange)" stroke-width="12" stroke-dasharray="190 50" stroke-linecap="round" transform="rotate(-90 150 180)"/>
-          <circle cx="150" cy="180" r="22" fill="none" stroke="#1A3330" stroke-width="11"/>
-          <circle cx="150" cy="180" r="22" fill="none" stroke="var(--moss)" stroke-width="11" stroke-dasharray="100 40" stroke-linecap="round" transform="rotate(-90 150 180)"/></g>
-        <g class="piece p-bat"><rect x="244" y="158" width="12" height="44" rx="5" fill="#3E403E"/></g>
-      </svg>
+    <div class="hero-art reveal">
+      <img class="hero-product" src="img/hero.webp" alt="Reloj inteligente CICLO desmontado en sus piezas: pantalla, esfera azul de plástico marino, caja de aluminio, batería y correa de tela" width="1000" height="1250" fetchpriority="high" decoding="async">
       <span class="chip c1">Caja de <b>aluminio reciclado</b></span>
       <span class="chip c2">Esfera de <b>plástico marino</b></span>
     </div>
@@ -282,10 +289,10 @@
   <div class="wrap">
     <div class="strip reveal">
       <ul>
-        <li><span>4</span>piezas que se cambian por separado</li>
-        <li><span>100&nbsp;%</span>venta online, directa a ti</li>
-        <li><span>4</span>modelos para cada plan</li>
-        <li><span>1</span>reloj que te dura años</li>
+        <li><span class="counter" data-count="4">0</span>piezas que se cambian por separado</li>
+        <li><span><b class="counter" data-count="100">0</b>&nbsp;%</span>venta online, directa a ti</li>
+        <li><span class="counter" data-count="4">0</span>modelos para cada plan</li>
+        <li><span class="counter" data-count="1">0</span>reloj que te dura años</li>
       </ul>
     </div>
   </div>
@@ -301,22 +308,22 @@
       </div>
       <div class="steps">
         <article class="step reveal">
-          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="3" width="20" height="20" rx="6" fill="none" stroke="var(--clay)" stroke-width="2.4"/></svg></div>
+          <img class="photo" src="img/recursos/I2-caja.webp" alt="Caja de reloj inteligente de aluminio cepillado, vacía, sobre fondo oscuro" width="1100" height="1000" loading="lazy" decoding="async">
           <div class="n">01 · Caja</div><h3>El corazón</h3>
           <p>De aluminio reciclado. Elige el modelo que encaja con tu día a día.</p>
         </article>
         <article class="step reveal">
-          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="9" fill="none" stroke="var(--clay)" stroke-width="2.4"/><path d="M13 8v5l3 2" stroke="var(--clay)" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
+          <img class="photo" src="img/recursos/I3-esfera-mar.webp" alt="Esfera cuadrada hecha con trocitos de plástico azul y turquesa" width="1100" height="1000" loading="lazy" decoding="async">
           <div class="n">02 · Esfera</div><h3>Tu estilo</h3>
           <p>Diseños hechos con plástico recogido del mar o madera recuperada.</p>
         </article>
         <article class="step reveal">
-          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="8" y="2" width="10" height="22" rx="4" fill="none" stroke="var(--clay)" stroke-width="2.4"/><path d="M8 9h10M8 17h10" stroke="var(--clay)" stroke-width="2"/></svg></div>
+          <img class="photo" src="img/recursos/I4-correas.webp" alt="Tres correas: tela beige, neopreno negro y cuero vegano marrón" width="1100" height="1000" loading="lazy" decoding="async">
           <div class="n">03 · Correa</div><h3>Para cada plan</h3>
           <p>Algodón reciclado, cuero vegano o neopreno para entrenar.</p>
         </article>
         <article class="step reveal">
-          <div class="ico"><svg width="26" height="26" viewBox="0 0 26 26"><rect x="3" y="7" width="18" height="12" rx="3" fill="none" stroke="var(--clay)" stroke-width="2.4"/><rect x="21.5" y="10.5" width="2.5" height="5" rx="1" fill="var(--clay)"/><rect x="6" y="10" width="7" height="6" rx="1.5" fill="var(--clay)"/></svg></div>
+          <img class="photo" src="img/recursos/I5-bateria.webp" alt="Módulo de batería rectangular saliendo de la caja del reloj" width="1100" height="1000" loading="lazy" decoding="async">
           <div class="n">04 · Batería</div><h3>Sin tirar nada</h3>
           <p>Cuando se gasta, cambias la batería y sigues con tu reloj.</p>
         </article>
@@ -342,21 +349,50 @@
         <p class="lead">Elige el modelo y vístelo con la correa y la esfera que te gusten. Lo vendemos directamente en nuestra tienda online, sin intermediarios.</p>
       </div>
 
+      <div class="gallery two">
+        <figure class="reveal"><img class="photo wide" src="img/recursos/I10-cuatro-modelos.webp" alt="Los cuatro relojes CICLO en fila, con correas beige, naranja, negra y turquesa" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>La gama</b>One, One Sport, Pro y Kids: misma idea, cuatro usos.</figcaption></figure>
+        <figure class="reveal"><img class="photo wide" src="img/recursos/I6-one-sport-lifestyle.webp" alt="Persona corriendo junto al mar con un reloj CICLO de correa naranja" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>One Sport</b>Pensado para correr, el gimnasio y el pulso.</figcaption></figure>
+      </div>
+
       <div class="models">
         <article class="model reveal">
-          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#262826;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#262826;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+            <button class="strap-swatch active" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="true"></button>
+            <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
+          </div>
           <div class="info"><div><h3>CICLO One</h3><p>El de todos los días.</p></div><span class="price">149&nbsp;€</span></div>
         </article>
         <article class="model reveal">
-          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#F08A4B;--case:#3A3C3A;--dial:#0A0A0A;--hand:#F08A4B"><use href="#reloj"/></svg></div>
+          <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#F08A4B;--case:#3A3C3A;--dial:#0A0A0A;--hand:#F08A4B"><use href="#reloj"/></svg></div>
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+            <button class="strap-swatch" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
+            <button class="strap-swatch active" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="true"></button>
+            <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
+          </div>
           <div class="info"><div><h3>One Sport</h3><p>Para correr, el gimnasio y el pulso.</p></div><span class="price">169&nbsp;€</span></div>
         </article>
         <article class="model reveal">
-          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#1E1F1E;--case:#5F605D;--dial:#0A0A0A;--hand:#7FD3C7"><use href="#reloj"/></svg></div>
+          <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#262826;--case:#5F605D;--dial:#0A0A0A;--hand:#7FD3C7"><use href="#reloj"/></svg></div>
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+            <button class="strap-swatch active" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="true"></button>
+            <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="false"></button>
+          </div>
           <div class="info"><div><h3>CICLO Pro</h3><p>Más funciones y la caja más resistente.</p></div><span class="price">229&nbsp;€</span></div>
         </article>
         <article class="model reveal">
-          <div class="pic"><svg viewBox="0 0 120 170" style="--strap:#7FD3C7;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="pic"><svg class="model-watch" viewBox="0 0 120 170" style="--strap:#7FD3C7;--case:#3A3C3A;--dial:#0A0A0A;--hand:#D4F25C"><use href="#reloj"/></svg></div>
+          <div class="strap-picker" role="group" aria-label="Elige el color de la correa">
+            <button class="strap-swatch" type="button" data-color="#262826" style="--swatch:#262826" aria-label="Negro" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#D8CBB3" style="--swatch:#D8CBB3" aria-label="Algodón natural" aria-pressed="false"></button>
+            <button class="strap-swatch" type="button" data-color="#F08A4B" style="--swatch:#F08A4B" aria-label="Naranja" aria-pressed="false"></button>
+            <button class="strap-swatch active" type="button" data-color="#7FD3C7" style="--swatch:#7FD3C7" aria-label="Turquesa" aria-pressed="true"></button>
+          </div>
           <div class="info"><div><h3>CICLO Kids</h3><p>Ligero y sencillo, para los peques.</p></div><span class="price">89&nbsp;€</span></div>
         </article>
       </div>
@@ -405,6 +441,14 @@
         </ol>
       </div>
     </div>
+    <div class="wrap">
+      <div class="gallery three">
+        <figure class="reveal"><img class="photo" src="img/recursos/I7-materiales-reciclados.webp" alt="Cuatro montones de material: virutas de aluminio, trozos de plástico azul, piezas de madera y fibras de algodón" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>De dónde partimos</b>Aluminio, plástico marino, madera y algodón.</figcaption></figure>
+        <figure class="reveal"><img class="photo" src="img/recursos/I8-esfera-madera.webp" alt="Esfera cuadrada de madera con vetas marcadas" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>Esfera Bosque</b>Madera recuperada.</figcaption></figure>
+        <figure class="reveal"><img class="photo" src="img/recursos/I9-correa-neopreno.webp" alt="Primer plano de una correa negra de neopreno con textura" width="1100" height="1000" loading="lazy" decoding="async"><figcaption><b>Correa de neopreno</b>Para entrenar.</figcaption></figure>
+      </div>
+      <p class="proto-note reveal">Imágenes de prototipo creadas para el proyecto. No son fotos de un producto fabricado.</p>
+    </div>
   </section>
 
   <section id="equipo">
@@ -432,20 +476,25 @@
         <h2>¿Se te ha roto algo?<br><em>Hablamos.</em></h2>
         <p class="lead">Pide cita para reparar o cambiar una pieza, o pregúntanos lo que quieras. Te contestamos por correo y, si hace falta, te damos cita.</p>
       </div>
-      <div class="side">
-        <ul>
-          <li>Respuesta por correo</li>
-          <li>Cita de reparación</li>
-          <li>Consejo sobre piezas</li>
-        </ul>
-        <a id="btn-contacto" class="btn" href="#contacto">Contáctanos <span class="arrow">→</span></a>
-        <p id="nota-contacto" class="note"></p>
-        <small>¿Quieres enterarte de los modelos y piezas nuevas?</small>
-        <form id="form-novedades" class="news">
-          <input type="email" name="email" placeholder="Tu correo" required aria-label="Tu correo">
-          <button class="btn" type="submit">Avísame</button>
+      <form class="cform" id="form-contacto">
+          <div class="row2">
+            <label>Nombre<input name="nombre" required autocomplete="name" placeholder="Tu nombre"></label>
+            <label>Correo<input name="correo" type="email" required autocomplete="email" placeholder="tu@correo.com"></label>
+          </div>
+          <label>Motivo<select name="motivo" required>
+            <option>Reparación o cita</option><option>Cambiar una pieza</option><option>Duda sobre modelos</option><option>Otra cosa</option>
+          </select></label>
+          <label>Mensaje<textarea name="mensaje" rows="4" required placeholder="Cuéntanos qué necesitas"></textarea></label>
+          <button class="btn" type="submit" id="btn-enviar">Enviar <span class="arrow">→</span></button>
+          <p id="nota-contacto" class="note" role="status"></p>
         </form>
-        <p id="nota-novedades" class="note"></p>
+        <div class="side" style="margin-top:22px">
+          <small>¿Quieres enterarte de los modelos y piezas nuevas?</small>
+          <form id="form-novedades" class="news">
+            <input type="email" name="email" placeholder="Tu correo" required aria-label="Tu correo">
+            <button class="btn" type="submit">Avísame</button>
+          </form>
+          <p id="nota-novedades" class="note"></p>
       </div>
     </div>
   </div>
@@ -464,7 +513,7 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
 </button>
 <div class="bot" id="bot" role="dialog" aria-label="Asistente de CICLO">
-  <div class="bot-head"><div><b>Asistente CICLO</b><small>Piezas, reparaciones y pedidos</small></div><button class="x" id="bot-x" aria-label="Cerrar">×</button></div>
+  <div class="bot-head"><span class="loader-ring" aria-hidden="true"></span><div><b>Asistente CICLO</b><small>Piezas, reparaciones y pedidos</small></div><button class="x" id="bot-x" aria-label="Cerrar">×</button></div>
   <div class="bot-msgs" id="bot-msgs"></div>
   <form class="bot-form" id="bot-form"><input id="bot-in" placeholder="Escribe tu pregunta" autocomplete="off"><button>Enviar</button></form>
 </div>
@@ -473,15 +522,28 @@
   /* ===== Conexiones con automatizaciones (n8n u otras) =====
      Pega aquí la URL de cada una cuando esté lista. Vacía = "muy pronto". */
   const CONEXIONES = {
-    formularioContacto: "https://uiemmc.app.n8n.cloud/form/ciclo-contacto-web",      // flujo «CICLO · Contacto web»
+    webhookContacto:    "https://uiemmc.app.n8n.cloud/webhook/ciclo-contacto",       // flujo «CICLO · Contacto web»
     webhookNovedades:   "",                                                          // pendiente: flujo que guarde { email } en una hoja
     webhookChat:        "https://uiemmc.app.n8n.cloud/webhook/ciclo-asistente-web/chat" // flujo «CICLO · Asistente web»
   };
 
-  // Contáctanos
-  const btn = document.getElementById("btn-contacto"), nota = document.getElementById("nota-contacto");
-  if (CONEXIONES.formularioContacto) { btn.href = CONEXIONES.formularioContacto; btn.target = "_blank"; btn.rel = "noopener"; }
-  else btn.addEventListener("click", e => { e.preventDefault(); nota.textContent = "El formulario de contacto estará disponible muy pronto."; });
+  // Formulario de contacto (se envía desde la web a n8n)
+  const fc = document.getElementById("form-contacto"), nota = document.getElementById("nota-contacto"), be = document.getElementById("btn-enviar");
+  fc.addEventListener("submit", async e => {
+    e.preventDefault();
+    const datos = Object.fromEntries(new FormData(fc));
+    be.disabled = true; nota.textContent = "Enviando…";
+    try {
+      const r = await fetch(CONEXIONES.webhookContacto, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(datos) });
+      if (!r.ok) throw new Error(r.status);
+      nota.textContent = "¡Gracias, " + datos.nombre + "! Te hemos enviado la respuesta a tu correo."; fc.reset();
+    } catch { nota.textContent = "No se ha podido enviar. Prueba de nuevo en un momento."; }
+    be.disabled = false;
+  });
+  // Los botones de cita llevan al formulario con el motivo ya elegido
+  document.querySelectorAll('a[href="#contacto"]').forEach(a => a.addEventListener("click", () => {
+    if (/cita/i.test(a.textContent)) fc.motivo.value = "Reparación o cita";
+  }));
 
   // Novedades por correo
   const fn = document.getElementById("form-novedades"), nn = document.getElementById("nota-novedades");
@@ -510,12 +572,53 @@
   document.getElementById("bot-form").addEventListener("submit", async e => {
     e.preventDefault(); const t = inp.value.trim(); if (!t) return; pinta(t, "u"); inp.value = "";
     if (!CONEXIONES.webhookChat) { pinta("Todavía estoy en pruebas. De momento, escríbenos desde «Contáctanos».", "b"); return; }
-    const espera = pinta("Escribiendo…", "b"); espera.style.opacity = ".6";
+    const espera = pinta("Escribiendo…", "b"); espera.style.opacity = ".6"; botRing?.classList.add("loading");
     try {
       const r = await fetch(CONEXIONES.webhookChat, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "sendMessage", sessionId: sesion, chatInput: t }) });
-      const j = await r.json(); espera.remove(); pinta(j.output || j.text || "No te he entendido, ¿puedes repetirlo?", "b");
-    } catch { espera.remove(); pinta("Ahora mismo no puedo responder. Prueba más tarde.", "b"); }
+      const j = await r.json(); espera.remove(); pinta(j.output || j.text || "No te he entendido, ¿puedes repetirlo?", "b"); botRing?.classList.remove("loading");
+    } catch { espera.remove(); pinta("Ahora mismo no puedo responder. Prueba más tarde.", "b"); botRing?.classList.remove("loading"); }
   });
+
+
+  // A2 · Selector de correas: cambia el color del SVG del modelo elegido
+  document.querySelectorAll(".model").forEach(card => {
+    const watch = card.querySelector(".model-watch");
+    card.querySelectorAll(".strap-swatch").forEach(swatch => {
+      swatch.addEventListener("click", () => {
+        watch.style.setProperty("--strap", swatch.dataset.color);
+        card.querySelectorAll(".strap-swatch").forEach(btn => {
+          const active = btn === swatch;
+          btn.classList.toggle("active", active);
+          btn.setAttribute("aria-pressed", String(active));
+        });
+      });
+    });
+  });
+
+  // A4 · Contadores: animación breve al entrar en pantalla
+  const counters = document.querySelectorAll(".counter");
+  const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const animateCounter = el => {
+    if (sinMovimiento) { el.textContent = el.dataset.count; return; }
+    const target = Number(el.dataset.count || 0);
+    const start = performance.now(), duration = 800;
+    const tick = now => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ("IntersectionObserver" in window) {
+    const counterObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { animateCounter(entry.target); counterObserver.unobserve(entry.target); }
+    }), {threshold:.6});
+    counters.forEach(el => counterObserver.observe(el));
+  } else counters.forEach(el => el.textContent = el.dataset.count);
+
+  // A3 · El anillo acompaña las esperas del asistente
+  const botRing = document.querySelector(".loader-ring");
 
   // Aparición suave al hacer scroll
   const items = document.querySelectorAll(".reveal");
