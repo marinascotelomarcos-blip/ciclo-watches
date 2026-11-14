@@ -277,6 +277,7 @@
     .model .pic svg{width:36%}
   }
 </style>
+<link rel="stylesheet" href="cita.css">
 </head>
 <body>
 
@@ -322,7 +323,7 @@
       <div class="ctas">
         <a class="btn" href="#modelos">Ver modelos <span class="arrow">→</span></a>
         <a class="btn light" href="configurador.html">Diseña el tuyo</a>
-        <a class="btn light" href="#contacto">Pedir cita de reparación</a>
+        <button class="btn light" type="button" data-abrir-cita>Pedir cita de reparación</button>
       </div>
     </div>
 
@@ -580,7 +581,8 @@
   const CONEXIONES = {
     webhookContacto:    "https://uiemmc.app.n8n.cloud/webhook/ciclo-contacto",       // flujo «CICLO · Contacto web»
     webhookNovedades:  "https://uiemmc.app.n8n.cloud/webhook/ciclo-novedades",                                                          // flujo «CICLO · Novedades» (n8n/CICLO_novedades.json): al activarlo, pegar https://uiemmc.app.n8n.cloud/webhook/ciclo-novedades
-    webhookChat:        "https://uiemmc.app.n8n.cloud/webhook/ciclo-asistente-web/chat" // flujo «CICLO · Asistente web»
+    webhookChat:        "https://uiemmc.app.n8n.cloud/webhook/ciclo-asistente-web/chat", // flujo «CICLO · Asistente web»
+    webhookCita:        ""   // flujo «CICLO · Cita web» (n8n/CICLO_cita_web.json): al activarlo, pegar https://uiemmc.app.n8n.cloud/webhook/ciclo-cita
   };
 
   // Menú en móvil y tablet: se abre y cierra con el botón, al elegir una sección o con Esc
@@ -766,5 +768,6 @@
     setTimeout(() => { if (!avisa) { io.disconnect(); ensenaTodo(); } }, 1500);
   } else ensenaTodo();
 </script>
+<script src="cita.js"></script>
 </body>
 </html>
