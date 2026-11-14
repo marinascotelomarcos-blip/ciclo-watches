@@ -41,6 +41,7 @@
     --ink:#F2F1EC; --ink-soft:#A3A39E; --ink-grey:#8B8C88; --hair:#2B2C2C;
     --clay:#D4F25C; --clay-wash:#20250F; --moss:#7FD3C7; --moss-wash:#152623;
     --orange:#F08A4B; --orange-wash:#2A1B12;
+    --clay-t:var(--clay); --moss-t:var(--moss); --orange-t:var(--orange);
     --serif:"Unbounded","Arial Black",sans-serif;
     --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --radius:22px;
@@ -53,6 +54,12 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
   .serif{font-family:var(--serif)}
   em{font-style:italic;color:var(--clay)}
+  /* Secciones claras (mitad y mitad): mismas variables y mismos colores de marca, con el fondo en blanco roto */
+  .claro{color-scheme:light;background:var(--bg);color:var(--ink);
+    --bg:#F2F1EC; --wash:#E8E6DD; --card:#FAF9F5; --ink:#121212; --ink-soft:#4A4B48; --ink-grey:#5F605C; --hair:#D6D4CA;
+    --clay-wash:#E3EDB8; --moss-wash:#D5EEE9; --orange-wash:#FAE0CD;
+    --clay-t:#4E6100; --moss-t:#176559; --orange-t:#9A4312}
+  .claro em{color:var(--ink);background:linear-gradient(transparent 60%,var(--clay) 60%);padding:0 .06em}
 
   /* Cabecera */
   header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--hair)}
@@ -65,7 +72,7 @@
   .links a:hover{color:var(--ink)}
 
   .btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;background:var(--ink);color:var(--bg);text-decoration:none;padding:14px 24px;border-radius:999px;font-weight:600;font-size:16px;border:0;cursor:pointer;transition:transform .2s ease,background .2s}
-  .btn:hover{transform:translateY(-1px);background:var(--clay)}
+  .btn:hover{transform:translateY(-1px);background:var(--clay);color:#121212}
   .btn:active{transform:translateY(0)}
   .btn.light{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--hair)}
   .btn.light:hover{background:var(--wash);box-shadow:inset 0 0 0 1.5px var(--ink-grey)}
@@ -75,7 +82,7 @@
 
   /* Portada */
   .hero{padding-top:80px;padding-bottom:40px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--clay)}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--clay-t)}
   .eyebrow::before{content:"";width:22px;height:1.5px;background:currentColor}
   h1{font-family:var(--serif);font-weight:700;font-size:clamp(38px,6.2vw,78px);line-height:1.02;letter-spacing:-.03em;margin:18px 0 24px}
   h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 18px}
@@ -124,7 +131,7 @@
   /* Cita grande */
   .quote{background:var(--card);border:1px solid var(--hair);color:var(--ink);border-radius:36px;padding:80px 64px;position:relative;overflow:hidden}
   .quote p{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.4vw,40px);line-height:1.2;letter-spacing:-.02em;margin:0;max-width:760px;position:relative}
-  .quote p em{color:var(--orange)}
+  .quote p em{color:var(--orange-t)}
   .quote small{display:block;margin-top:26px;color:var(--ink-soft);font-size:15px}
   .quote .ring{position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;border:30px solid var(--clay);opacity:.9;
     -webkit-mask:conic-gradient(#000 0 72%,transparent 0);mask:conic-gradient(#000 0 72%,transparent 0)}
@@ -140,7 +147,7 @@
   .model.destacado .info{grid-column:2;grid-row:1;align-self:end;padding:32px 32px 8px}
   .model.destacado .info h3{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.02em}
   .model.destacado .strap-picker{grid-column:2;grid-row:2;padding:8px 32px 32px}
-  .uso{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);margin-bottom:4px}
+  .uso{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clay-t);margin-bottom:4px}
   .strap-name{font-size:13px;color:var(--ink-soft);min-width:9.5em}
   .model{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden;transition:transform .3s ease,box-shadow .3s}
   .model:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
@@ -155,7 +162,7 @@
   .part li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--hair);font-size:15.5px}
   .sw{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:10px;vertical-align:-1px}
   .soon{margin-top:22px;display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:15.5px}
-  .soon b{background:var(--clay-wash);color:var(--clay);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+  .soon b{background:var(--clay-wash);color:var(--clay-t);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
 
   /* Reciclado */
   .origin{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
@@ -165,16 +172,17 @@
   .trace ol{margin:0;padding:0}
   .dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:600}
   .trace small{display:block;color:var(--ink-soft);font-size:14px}
-  .trace .from{font-size:13px;font-weight:600;color:var(--moss);background:var(--moss-wash);padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .trace .from{font-size:13px;font-weight:600;color:var(--moss-t);background:var(--moss-wash);padding:5px 11px;border-radius:999px;white-space:nowrap}
 
   /* Equipo */
   .team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .person{border-top:1.5px solid var(--ink);padding-top:20px}
-  .person .ini{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1;color:var(--clay);margin-bottom:16px}
+  .person .ini{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1;color:var(--clay-t);margin-bottom:16px}
   .person p{margin:0;color:var(--ink-soft);font-size:15.5px}
 
   /* Contacto */
   .contact{background:var(--clay-wash);border-radius:36px;padding:72px 64px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+  .contact .btn.light{box-shadow:inset 0 0 0 1.5px var(--ink-grey)}
   .contact h2{margin-top:0}
   .contact .side{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
   .contact .side ul{list-style:none;margin:0;padding:0;color:var(--ink-soft);font-size:15.5px}
@@ -370,7 +378,7 @@
     </div>
   </div>
 
-  <section id="como">
+  <section id="como" class="claro">
     <div class="wrap">
       <div class="head reveal">
         <div>
@@ -493,7 +501,7 @@
     </div>
   </section>
 
-  <section id="origen" style="background:var(--wash)">
+  <section id="origen" class="claro" style="background:var(--wash)">
     <div class="wrap origin">
       <div class="reveal">
         <span class="eyebrow">Material reciclado</span>
@@ -503,10 +511,10 @@
       </div>
       <div class="trace reveal">
         <ol>
-          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay)">C</span><div><b>Caja</b><small>La base del reloj</small></div><span class="from">Aluminio reciclado</span></li>
-          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss)">E</span><div><b>Esfera Océano</b><small>Azul mar</small></div><span class="from">Plástico marino</span></li>
-          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss)">E</span><div><b>Esfera Bosque</b><small>Vetas de madera</small></div><span class="from">Madera recuperada</span></li>
-          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay)">R</span><div><b>Correas</b><small>Tres materiales</small></div><span class="from">Algodón y neopreno</span></li>
+          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay-t)">C</span><div><b>Caja</b><small>La base del reloj</small></div><span class="from">Aluminio reciclado</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Esfera Océano</b><small>Azul mar</small></div><span class="from">Plástico marino</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Esfera Bosque</b><small>Vetas de madera</small></div><span class="from">Madera recuperada</span></li>
+          <li><span class="dot" style="background:var(--clay-wash);color:var(--clay-t)">R</span><div><b>Correas</b><small>Tres materiales</small></div><span class="from">Algodón y neopreno</span></li>
         </ol>
       </div>
     </div>
@@ -521,7 +529,7 @@
     </div>
   </section>
 
-  <section id="equipo">
+  <section id="equipo" class="claro">
     <div class="wrap">
       <div class="head reveal">
         <div>
