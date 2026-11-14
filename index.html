@@ -82,7 +82,9 @@
   h3{font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 6px}
   .eyebrow{letter-spacing:.14em}
   .lead{font-size:20px;color:var(--ink-soft);max-width:540px;margin:0}
-  .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .ctas{display:flex;gap:12px 28px;flex-wrap:wrap;align-items:center;margin-top:34px}
+  .btn-texto{display:inline-flex;align-items:center;gap:8px;color:var(--ink);font-weight:600;font-size:16px;text-decoration:none;padding:14px 4px;border-bottom:1px solid var(--hair);transition:border-color .2s}
+  .btn-texto:hover,.btn-texto:focus-visible{border-color:var(--clay)}
   .hero-art{position:relative;aspect-ratio:4/5;border-radius:32px;background:#121212;overflow:hidden;isolation:isolate}
   .hero-art .hero-product{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   /* La foto entra suave cuando la portada aparece en pantalla (clase .in del scroll) */
@@ -348,8 +350,7 @@
       <p class="lead">Relojes inteligentes hechos con material reciclado. Caja, esfera, correa y batería se cambian por separado: si algo se rompe o te cansas de cómo se ve, cambias solo esa pieza.</p>
       <div class="ctas">
         <a class="btn" href="#modelos">Ver modelos <span class="arrow">→</span></a>
-        <a class="btn light" href="configurador.html">Diseña el tuyo</a>
-        <button class="btn light" type="button" data-abrir-cita>Pedir cita de reparación</button>
+        <a class="btn-texto" href="configurador.html">Diseña el tuyo <span class="arrow">→</span></a>
       </div>
     </div>
 
@@ -544,6 +545,7 @@
         <span class="eyebrow">Contacto</span>
         <h2>¿Se te ha roto algo?<br><em>Hablamos.</em></h2>
         <p class="lead">Pide cita para reparar o cambiar una pieza, o pregúntanos lo que quieras. Te contestamos por correo y, si hace falta, te damos cita.</p>
+        <button class="btn light" type="button" data-abrir-cita style="margin-top:8px">Pedir cita de reparación</button>
       </div>
       <form class="cform" id="form-contacto">
           <div class="row2">
@@ -573,25 +575,11 @@
 <footer>
   <div class="wrap">
     <div class="row">
-      <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña</span>
+      <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña · <a href="#contacto" data-abrir-cita>Pedir cita</a></span>
       <span>Proyecto académico del Grupo 6 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales. <a href="privacidad.html">Privacidad</a></span>
     </div>
   </div>
 </footer>
-
-<dialog class="dlg" id="bienvenida" aria-labelledby="dlg-titulo" aria-describedby="dlg-texto">
-  <form class="dlg-form" id="form-bienvenida" novalidate>
-    <button class="dlg-x" type="button" data-cerrar aria-label="Cerrar">×</button>
-    <span class="eyebrow">Bienvenida</span>
-    <h2 id="dlg-titulo">Tu primer CICLO,<br><em>un 10&nbsp;% menos.</em></h2>
-    <p id="dlg-texto" class="dlg-texto">Suscríbete para descubrir nuevos modelos, materiales y novedades, y llévate un 10&nbsp;% de descuento en tu primer pedido.</p>
-    <label class="dlg-campo">Tu correo<input type="email" name="email" required autocomplete="email" placeholder="tu@correo.com" autofocus></label>
-    <label class="ok-legal"><input type="checkbox" name="consentimiento" required> <span>Acepto recibir correos de CICLO y la <a href="privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
-    <button class="btn" type="submit" id="btn-bienvenida">Quiero mi 10&nbsp;%</button>
-    <button class="dlg-no" type="button" data-cerrar>Ahora no</button>
-    <p id="nota-bienvenida" class="note" role="status" aria-live="polite"></p>
-  </form>
-</dialog>
 
 <button class="bot-btn" id="bot-btn" aria-label="Abrir el asistente">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
@@ -651,7 +639,7 @@
     }
   } catch {}
 
-  // ===== Novedades: el popup de bienvenida y el formulario del pie usan el mismo envío =====
+  // ===== Novedades: formulario del pie =====
   // Se manda { email, consentimiento, origen, fecha } al flujo «CICLO · Novedades» de n8n.
   // El descuento NO se genera aquí: no hay tienda ni sistema de cupones (ver marca/ESTADO-RECURSOS.md).
   const suscribir = async (email, origen) => {
@@ -684,36 +672,7 @@
     });
   };
   const fn = document.getElementById("form-novedades");
-  conecta(fn, document.getElementById("nota-novedades"), fn.querySelector("button"), "pie", () => guardaBienvenida("suscrito"));
-
-  // Popup de bienvenida: a los 7 s o al pasar el 40 % de la página, una sola vez.
-  // Si se cierra, no vuelve en 14 días; si se apunta, no vuelve más (se guarda solo en este navegador).
-  const dlg = document.getElementById("bienvenida"), fb = document.getElementById("form-bienvenida");
-  const CLAVE = "ciclo-bienvenida", DIAS = 14;
-  const leeBienvenida = () => { try { return JSON.parse(localStorage.getItem(CLAVE)); } catch { return null; } };
-  function guardaBienvenida(estado) { try { localStorage.setItem(CLAVE, JSON.stringify({ estado, fecha: Date.now() })); } catch {} }
-  const tocaMostrar = () => { const v = leeBienvenida(); return !v || (v.estado !== "suscrito" && Date.now() - v.fecha > DIAS * 864e5); };
-  const ocupado = () => document.querySelector("dialog[open]") || bot.classList.contains("open") || navEl.classList.contains("abierto")
-    || fc.contains(document.activeElement) || fn.contains(document.activeElement);
-  let lanzado = false;
-  const intenta = () => {
-    if (lanzado || !tocaMostrar() || typeof dlg.showModal !== "function") return;
-    if (ocupado()) { setTimeout(intenta, 4000); return; }   // no tapa otro modal ni un formulario a medio rellenar
-    lanzado = true; dlg.showModal();
-  };
-  dlg.querySelectorAll("[data-cerrar]").forEach(b => b.addEventListener("click", () => dlg.close("cerrado")));
-  dlg.addEventListener("close", () => { if ((leeBienvenida() || {}).estado !== "suscrito") guardaBienvenida("cerrado"); });
-  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close("cerrado"); });   // clic fuera = cerrar
-  conecta(fb, document.getElementById("nota-bienvenida"), document.getElementById("btn-bienvenida"), "popup", () => {
-    guardaBienvenida("suscrito"); dlg.returnValue = "suscrito";
-    const b = document.getElementById("btn-bienvenida"); b.textContent = "Apuntado ✓"; b.disabled = true;
-    fb.querySelector('[data-cerrar].dlg-no').textContent = "Cerrar";
-  });
-  if (tocaMostrar()) {
-    setTimeout(intenta, 7000);
-    const alBajar = () => { if (scrollY > (document.documentElement.scrollHeight - innerHeight) * 0.4) { removeEventListener("scroll", alBajar); intenta(); } };
-    addEventListener("scroll", alBajar, { passive: true });
-  }
+  conecta(fn, document.getElementById("nota-novedades"), fn.querySelector("button"), "pie");
 
   // Asistente (chatbot)
   const bot = document.getElementById("bot"), msgs = document.getElementById("bot-msgs"), inp = document.getElementById("bot-in");
