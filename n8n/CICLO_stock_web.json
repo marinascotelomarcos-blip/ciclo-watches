@@ -1,0 +1,82 @@
+{
+ "name": "CICLO · Stock web",
+ "nodes": [
+  {
+   "parameters": {
+    "httpMethod": "GET",
+    "path": "ciclo-stock",
+    "responseMode": "responseNode",
+    "options": {}
+   },
+   "name": "Stock desde la web",
+   "type": "n8n-nodes-base.webhook",
+   "typeVersion": 2,
+   "position": [0, 0],
+   "webhookId": "ciclo-stock-web-get"
+  },
+  {
+   "parameters": {
+    "documentId": {
+     "__rl": true,
+     "mode": "url",
+     "value": "https://docs.google.com/spreadsheets/d/12CsTAtFtGkGvozUox8bZRWxKtRgO7U0ghmPvfw4Tr6g/edit"
+    },
+    "sheetName": {
+     "__rl": true,
+     "mode": "name",
+     "value": "Stock"
+    },
+    "options": {}
+   },
+   "name": "Leer stock",
+   "type": "n8n-nodes-base.googleSheets",
+   "typeVersion": 4.5,
+   "position": [260, 0],
+   "alwaysOutputData": true,
+   "credentials": {
+    "googleSheetsOAuth2Api": {
+     "id": null,
+     "name": ""
+    }
+   }
+  },
+  {
+   "parameters": {
+    "mode": "runOnceForAllItems",
+    "language": "javaScript",
+    "jsCode": "// Convierte las filas de la hoja en { id: unidades } y elige el origen permitido para CORS.\nconst unidades = {};\nfor (const i of $input.all()) {\n  const id = String(i.json.id || '').trim();\n  const n = parseInt(String(i.json.unidades ?? '').trim(), 10);\n  if (id && Number.isFinite(n)) unidades[id] = Math.max(0, n);\n}\nconst origin = String($('Stock desde la web').first().json.headers.origin || '');\nconst permitido = origin === 'https://marinascotelomarcos-blip.github.io' || /^http:\\/\\/(localhost|127\\.0\\.0\\.1)(:\\d+)?$/.test(origin);\nreturn [{ json: {\n  origen: permitido ? origin : 'https://marinascotelomarcos-blip.github.io',\n  cuerpo: { ejemplo: true, actualizado: $now.setZone('Europe/Madrid').toISO(), unidades }\n} }];"
+   },
+   "name": "Armar stock",
+   "type": "n8n-nodes-base.code",
+   "typeVersion": 2,
+   "position": [520, 0],
+   "notes": "Why Code: pasar las filas de la hoja a un objeto {id: unidades} y elegir la cabecera CORS según el origen de la petición."
+  },
+  {
+   "parameters": {
+    "respondWith": "json",
+    "responseBody": "={{ $json.cuerpo }}",
+    "options": {
+     "responseCode": 200,
+     "responseHeaders": {
+      "entries": [
+       { "name": "Access-Control-Allow-Origin", "value": "={{ $json.origen }}" },
+       { "name": "Vary", "value": "Origin" },
+       { "name": "Cache-Control", "value": "no-store" }
+      ]
+     }
+    }
+   },
+   "name": "Responder: stock",
+   "type": "n8n-nodes-base.respondToWebhook",
+   "typeVersion": 1.1,
+   "position": [780, 0]
+  }
+ ],
+ "connections": {
+  "Stock desde la web": { "main": [[{ "node": "Leer stock", "type": "main", "index": 0 }]] },
+  "Leer stock": { "main": [[{ "node": "Armar stock", "type": "main", "index": 0 }]] },
+  "Armar stock": { "main": [[{ "node": "Responder: stock", "type": "main", "index": 0 }]] }
+ },
+ "settings": { "executionOrder": "v1" }
+}
