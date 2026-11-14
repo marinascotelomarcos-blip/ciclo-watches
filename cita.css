@@ -1,0 +1,40 @@
+/* Selector de cita de reparación (cita.js). Usa los colores y la tipografía de la web. */
+.cita{width:min(640px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:0;border:1px solid var(--hair);border-radius:26px;background:var(--card);color:var(--ink);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cita::backdrop{background:rgba(8,8,8,.6)}
+.cita[open]{animation:dlg-in .25s cubic-bezier(.2,.8,.2,1)}
+.cita-form{display:grid;gap:18px;padding:30px 24px 24px;position:relative}
+.cita-form h2{font-size:clamp(24px,6vw,32px);margin:4px 0 0;padding-right:44px}
+.cita-form .dlg-texto{margin:0}
+.cita-x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--ink-soft);font-size:26px;line-height:1;cursor:pointer}
+.cita-x:hover{background:var(--wash);color:var(--ink)}
+.cita fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+.cita legend{padding:0;font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-bottom:10px}
+.cita-dias{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.cita-semana{grid-column:1/-1;font-size:12.5px;color:var(--ink-grey);margin:6px 0 0}
+.cita-semana:first-child{margin-top:0}
+.cita-dia,.cita-hueco{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--hair);border-radius:14px;cursor:pointer;min-height:48px;transition:background .15s,border-color .15s}
+.cita-dia{display:grid;justify-items:center;gap:0;padding:6px 4px;line-height:1.2}
+.cita-dia small{font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em}
+.cita-dia b{font-size:18px}
+.cita-dia:hover,.cita-hueco:hover{border-color:var(--ink-grey)}
+.cita-dia[aria-pressed="true"],.cita-hueco[aria-pressed="true"]{background:var(--clay);border-color:var(--clay);color:#121212}
+.cita-dia[aria-pressed="true"] small{color:#121212}
+.cita-huecos{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.cita-hueco{font-size:15.5px;font-weight:600;padding:10px 8px}
+.cita-franja{grid-column:1/-1;font-size:12.5px;color:var(--ink-grey);margin:4px 0 0}
+.cita-elegida{margin:0;font-size:15px;color:var(--clay);min-height:1.4em}
+.cita-form label{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+.cita-form .campo input,.cita-form .campo select,.cita-form .campo textarea{background:var(--bg);border:1px solid var(--hair);color:var(--ink);border-radius:14px;padding:12px 14px;font:inherit;font-size:16px;width:100%;resize:vertical}
+.cita-form .campo input:focus,.cita-form .campo select:focus,.cita-form .campo textarea:focus{outline:2px solid var(--clay);outline-offset:1px}
+.cita-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cita-form label.ok-legal{display:flex;font-weight:400}
+.cita-form .btn{justify-content:center}
+.cita-form .btn[disabled]{opacity:.6;cursor:wait}
+.cita-nota{min-height:1.4em;margin:0;font-size:14.5px;color:var(--clay)}
+.cita-nota.error{color:var(--orange)}
+.cita-hecho{padding:36px 24px 28px;display:grid;gap:14px}
+.cita-hecho h2{margin:0;font-size:clamp(24px,6vw,32px);padding-right:44px}
+.cita-hecho p{margin:0;color:var(--ink-soft)}
+@media (max-width:520px){.cita-form .row2{grid-template-columns:1fr}.cita-form{padding:26px 16px 20px}}
+@media (prefers-reduced-motion:reduce){.cita[open]{animation:none}.cita-dia,.cita-hueco{transition:none}}
+.cita [hidden]{display:none!important}
