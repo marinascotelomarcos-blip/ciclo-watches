@@ -304,6 +304,7 @@
       <div class="links" id="menu-secciones">
         <a href="#como">Cómo funciona</a>
         <a href="#modelos">Modelos</a>
+        <a href="configurador.html">Diseña el tuyo</a>
         <a href="#origen">Material reciclado</a>
         <a href="#equipo">Equipo</a>
       </div>
@@ -320,6 +321,7 @@
       <p class="lead">Relojes inteligentes hechos con material reciclado. Caja, esfera, correa y batería se cambian por separado: si algo se rompe o te cansas de cómo se ve, cambias solo esa pieza.</p>
       <div class="ctas">
         <a class="btn" href="#modelos">Ver modelos <span class="arrow">→</span></a>
+        <a class="btn light" href="configurador.html">Diseña el tuyo</a>
         <a class="btn light" href="#contacto">Pedir cita de reparación</a>
       </div>
     </div>
@@ -605,6 +607,20 @@
   document.querySelectorAll('a[href="#contacto"]').forEach(a => a.addEventListener("click", () => {
     if (/cita/i.test(a.textContent)) fc.motivo.value = "Reparación o cita";
   }));
+
+  // Viene del configurador: rellena el motivo y el mensaje con el diseño elegido (sessionStorage, o ?pedido= si no se pudo guardar)
+  try {
+    let ped = null;
+    try { ped = JSON.parse(sessionStorage.getItem("ciclo-pedido") || "null"); sessionStorage.removeItem("ciclo-pedido"); } catch {}
+    const q = new URLSearchParams(location.search).get("pedido");
+    if (!ped && q) ped = { motivo: "Pedir un diseño", mensaje: q };
+    if (ped && ped.mensaje) {
+      if (![...fc.motivo.options].some(o => o.value === ped.motivo)) fc.motivo.add(new Option(ped.motivo, ped.motivo));
+      fc.motivo.value = ped.motivo; fc.mensaje.value = ped.mensaje;
+      nota.textContent = "Hemos puesto tu diseño en el mensaje. Añade tu nombre y tu correo y envía.";
+      if (q) history.replaceState(null, "", location.pathname + location.hash);
+    }
+  } catch {}
 
   // ===== Novedades: el popup de bienvenida y el formulario del pie usan el mismo envío =====
   // Se manda { email, consentimiento, origen, fecha } al flujo «CICLO · Novedades» de n8n.

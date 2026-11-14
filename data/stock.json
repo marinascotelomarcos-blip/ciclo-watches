@@ -1,0 +1,18 @@
+{
+  "ejemplo": true,
+  "actualizado": "2026-11-14",
+  "nota": "Datos de ejemplo del proyecto académico. No es stock real.",
+  "unidades": {
+    "one": 14,
+    "sport": 3,
+    "pro": 0,
+    "kids": 9,
+    "correa-algodon": 22,
+    "correa-neopreno": 0,
+    "correa-cuero": 4,
+    "esfera-oceano": 2,
+    "esfera-bosque": 0,
+    "bateria": 30,
+    "kit-reparacion": 0
+  }
+}
