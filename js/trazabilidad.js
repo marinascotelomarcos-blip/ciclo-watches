@@ -48,7 +48,7 @@
     Object.keys(datos.piezas).forEach(function (k) {
       var p = datos.piezas[k];
       var a = el("article", "ficha");
-      if (p.foto) { var img = el("img"); img.src = p.foto; img.alt = ""; img.width = 460; img.height = 345; img.loading = "lazy"; img.decoding = "async"; a.appendChild(img); } else if (p.color) { var m = el("div", "ficha-color"); m.style.background = p.color; m.setAttribute("aria-hidden", "true"); a.appendChild(m); }
+      if (p.foto) { var img = el("img"); img.src = p.foto; img.alt = ""; img.width = 460; img.height = 345; img.loading = "lazy"; img.decoding = "async"; a.appendChild(img); } else if (p.color) { var m = el("div", "ficha-color"); m.style.backgroundColor = p.color; m.setAttribute("data-tx", k); m.setAttribute("aria-hidden", "true"); a.appendChild(m); }
       var b = el("div", "ficha-body");
       b.appendChild(el("h3", null, p.nombre));
       b.appendChild(el("p", "mat", p.material + (p.usos ? " · " + p.usos : "")));

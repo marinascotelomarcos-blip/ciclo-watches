@@ -121,7 +121,7 @@ function pintaGrupo(grupo, tipo) {
       let c = it.color || it.correa;
       if (grupo === "correa" && it.incluida) c = buscar("modelo", sel.modelo).correa;
       const fondo = it.img ? "background-image:url('" + it.img + "')" : "";
-      muestra = '<span class="sw" aria-hidden="true" style="--c:' + c + ';' + fondo + '"></span>';
+      muestra = '<span class="sw" aria-hidden="true" data-tx="' + it.id.replace(/^(bisel|trasera)-/, "") + '" style="--c:' + c + ';' + fondo + '"></span>';
     }
     const extra = it.nota ? it.nota : "";
     const precio = it.incluida ? "Incluida" : eur(it.precio);
@@ -159,7 +159,8 @@ function actualiza() {
   reloj.style.setProperty("--case", m.caja);
   reloj.style.setProperty("--hand", m.mano);
   reloj.style.setProperty("--bisel", e.color || m.caja);
-  $("trasera-sw").style.background = r.color || "#2B2C2C";
+  $("trasera-sw").style.backgroundColor = r.color || "#2B2C2C";
+  $("trasera-sw").dataset.tx = r.id.replace(/^trasera-/, "");
   $("trasera-nombre").textContent = r.incluida ? "Trasera de serie" : "Trasera " + r.corto;
   const ls = lineas();
   const ul = $("lista-resumen"); ul.innerHTML = "";

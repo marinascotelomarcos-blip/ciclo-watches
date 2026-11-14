@@ -1,0 +1,28 @@
+/* CICLO · texturas provisionales de los acabados (SVG en línea, sin imágenes).
+   Se aplican con data-tx="duna|neumatico|cafe|cristal" sobre cualquier muestra.
+   Cuando haya fotos reales: quitar el data-tx (o borrar este archivo) y poner la foto como background-image. */
+[data-tx]{background-blend-mode:normal}
+
+/* Duna · corcho: gránulos claros y oscuros sobre arena */
+[data-tx="duna"]{background-color:#C9B48A;background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .36  0 0 0 0 .25  0 0 0 0 .12  0 0 0 -2.4 1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.11' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .95  0 0 0 0 .86  0 0 0 0 .66  0 0 0 -2 .95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:140px 140px,90px 90px}
+
+/* Neumático · caucho: grano fino casi negro, con un destello suave */
+[data-tx="neumatico"]{background-color:#1F2020;background-image:
+  linear-gradient(135deg,rgba(255,255,255,.07),transparent 45%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='2'/%3E%3CfeColorMatrix values='0 0 0 0 .75  0 0 0 0 .75  0 0 0 0 .72  0 0 0 -1.8 .8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:auto,120px 120px}
+
+/* Café · posos prensados: motas oscuras y rojizas sobre marrón */
+[data-tx="cafe"]{background-color:#4B3326;background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .08  0 0 0 0 .04  0 0 0 0 .02  0 0 0 -3.4 1.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.2' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .62  0 0 0 0 .42  0 0 0 0 .3  0 0 0 -3 1.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:130px 130px,100px 100px}
+
+/* Cristal · vidrio translúcido: brillos diagonales y trozos más claros */
+[data-tx="cristal"]{background-color:#7FB89A;background-image:
+  linear-gradient(115deg,rgba(255,255,255,.38) 0,rgba(255,255,255,0) 28%,rgba(255,255,255,.16) 46%,rgba(255,255,255,0) 62%,rgba(255,255,255,.3) 80%,rgba(255,255,255,0) 100%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035 .06' numOctaves='3' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.6 1.15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.55'/%3E%3C/svg%3E");
+  background-size:auto,160px 160px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
