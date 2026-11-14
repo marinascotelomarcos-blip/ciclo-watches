@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CICLO Watches</title>
 <meta name="description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
+<link rel="canonical" href="https://marinascotelomarcos-blip.github.io/ciclo-watches/">
+<meta name="theme-color" content="#121212">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="CICLO Watches">
+<meta property="og:title" content="CICLO Watches · Cambias la pieza, no el reloj">
+<meta property="og:description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
+<meta property="og:url" content="https://marinascotelomarcos-blip.github.io/ciclo-watches/">
+<meta property="og:image" content="https://marinascotelomarcos-blip.github.io/ciclo-watches/img/og-ciclo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Las piezas de un reloj CICLO sobre piedra oscura y el lema «Cambias la pieza, no el reloj»">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CICLO Watches · Cambias la pieza, no el reloj">
+<meta name="twitter:description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
+<meta name="twitter:image" content="https://marinascotelomarcos-blip.github.io/ciclo-watches/img/og-ciclo.png">
 <link rel="icon" type="image/svg+xml" href="marca/favicon.svg">
 <link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -238,11 +254,19 @@
   /* Foco visible al navegar con teclado */
   :focus-visible{outline:2px solid var(--clay);outline-offset:3px}
 
+  /* Pulido: contraste del número de paso, enlace de salto, aire final para que el botón del asistente no tape el pie */
+  .step .n{color:var(--ink-soft)}
+  .salto{position:absolute;left:12px;top:-60px;z-index:30;background:var(--clay);color:#121212;padding:10px 16px;border-radius:999px;font-weight:700;text-decoration:none}
+  .salto:focus{top:10px}
+  footer .row a{color:var(--ink)}
+  @media (max-width:900px){footer{padding-bottom:104px}}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
     .btn,.step,.model,.strap-swatch{transition:none}
-    .hero-art .hero-product,.loader-ring,.dlg{animation:none}
+    .hero-art .hero-product,.loader-ring,.dlg,.dlg[open]{animation:none}
+    .bot,.bot-btn,.step .photo{transition:none}
   }
 
   @media (max-width:900px){
@@ -279,6 +303,7 @@
 </style>
 </head>
 <body>
+<a class="salto" href="#inicio">Saltar al contenido</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -544,7 +569,7 @@
   <div class="wrap">
     <div class="row">
       <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña</span>
-      <span>Proyecto académico del Grupo 6 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales.</span>
+      <span>Proyecto académico del Grupo 6 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales. <a href="privacidad.html">Privacidad</a></span>
     </div>
   </div>
 </footer>
