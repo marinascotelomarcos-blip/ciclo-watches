@@ -272,6 +272,12 @@
   .salto:focus{top:10px}
   footer .row a{color:var(--ink)}
   @media (max-width:900px){footer{padding-bottom:104px}}
+  /* Táctil: zonas de toque de 40 px o más sin cambiar el dibujo */
+  @media (pointer:coarse){
+    .strap-swatch::after{inset:-9px}
+    .bot-head .x{min-width:40px;min-height:40px}
+    footer a{display:inline-block;padding:10px 4px}
+  }
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}

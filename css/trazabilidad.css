@@ -145,3 +145,6 @@ footer .row span:last-child{max-width:560px}
   --clay-wash:#E3EDB8; --moss-wash:#D5EEE9; --orange-wash:#FAE0CD;
   --clay-t:#4E6100; --moss-t:#176559; --orange-t:#9A4312}
 .claro em{color:var(--ink);background:linear-gradient(transparent 60%,var(--clay) 60%);padding:0 .06em}
+
+/* Táctil: zonas de toque de 40 px o más */
+@media (pointer:coarse){.help button{min-height:40px;padding:10px 4px}footer a{display:inline-block;padding:10px 4px}}
