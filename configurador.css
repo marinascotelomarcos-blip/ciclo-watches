@@ -54,7 +54,10 @@ h2{font-family:var(--serif);font-weight:600;font-size:17px;letter-spacing:-.01em
 .watch .tira{fill:var(--strap)}
 .watch .caja{fill:var(--case)}
 .watch .corona{fill:var(--case)}
+.watch .bisel{stroke:var(--bisel,#3A3C3A);transition:stroke .3s}
 .watch .anillo{stroke:var(--hand);transition:stroke .3s}
+.trasera-chip{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--hair);border-radius:999px;padding:5px 12px 5px 6px;font-size:12.5px;color:var(--ink-soft)}
+.trasera-chip #trasera-sw{width:22px;height:22px;border-radius:50%;border:2px solid rgba(242,241,236,.24);transition:background .3s}
 .stage-label{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:12.5px;color:var(--ink-soft);margin:0}
 
 .resumen h2{margin-bottom:10px}

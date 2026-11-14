@@ -110,15 +110,17 @@
   .head .lead{max-width:440px}
 
   /* Cómo funciona */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
   .step{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);padding:26px;transition:transform .3s ease,border-color .3s}
   .step:hover{transform:translateY(-4px);border-color:var(--ink-grey)}
+  @media (max-width:1100px){.steps{grid-template-columns:repeat(3,1fr)}}
   .step .n{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink-grey);text-transform:uppercase}
   .step p{margin:0;color:var(--ink-soft);font-size:15.5px}
 
   /* Fotos de producto: mismo formato que el archivo (11:10), sin recortar ni deformar */
   .photo{display:block;width:100%;height:auto;aspect-ratio:11/10;object-fit:contain;background:#121212}
   .step{overflow:hidden}
+  .step .muestras{display:grid;grid-template-columns:repeat(3,1fr);aspect-ratio:1/1;width:calc(100% + 52px);margin:-26px -26px 22px}
   .step .photo{aspect-ratio:1/1;object-fit:cover;width:calc(100% + 52px);max-width:none;margin:-26px -26px 22px;border-radius:0} /* la foto llena la parte de arriba de la tarjeta */
   /* Materiales: una foto por tarjeta, a sangre (sin marco dentro de la tarjeta) */
   .materials{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
@@ -355,7 +357,7 @@
     <div>
       <span class="eyebrow">Relojes inteligentes por piezas</span>
       <h1>Cambias la pieza,<br><em>no el reloj.</em></h1>
-      <p class="lead">Relojes inteligentes hechos con material reciclado. Caja, esfera, correa y batería se cambian por separado: si algo se rompe o te cansas de cómo se ve, cambias solo esa pieza.</p>
+      <p class="lead">Relojes inteligentes hechos con material reciclado. Caja, bisel, trasera, correa y batería se cambian por separado: si algo se rompe o te cansas de cómo se ve, cambias solo esa pieza.</p>
       <div class="ctas">
         <a class="btn" href="#modelos">Ver modelos <span class="arrow">→</span></a>
         <a class="btn-texto" href="configurador.html">Diseña el tuyo <span class="arrow">→</span></a>
@@ -363,14 +365,14 @@
     </div>
 
     <div class="hero-art reveal">
-      <img class="hero-product" src="img/fotos/CICLO_hero_modular_4x5.webp" alt="Las piezas de un reloj CICLO sobre piedra oscura: caja de aluminio, esfera verde moteada, batería, correa negra y correa naranja" width="480" height="565" fetchpriority="high" decoding="async">
+      <img class="hero-product" src="img/fotos/CICLO_hero_modular_4x5.webp" alt="Las piezas de un reloj CICLO sobre piedra oscura: caja de aluminio, bisel verde moteado, batería, correa negra y correa naranja" width="480" height="565" fetchpriority="high" decoding="async">
     </div>
   </div>
 
   <div class="wrap">
     <div class="strip reveal">
       <ul>
-        <li><span class="counter" data-count="4">4</span>piezas que se cambian por separado</li>
+        <li><span class="counter" data-count="5">5</span>piezas que se cambian por separado</li>
         <li><span><b class="counter" data-count="100">100</b>&nbsp;%</span>venta online, directa a ti</li>
         <li><span class="counter" data-count="4">4</span>modelos para cada plan</li>
         <li><span class="counter" data-count="1">1</span>reloj que te dura años</li>
@@ -383,9 +385,9 @@
       <div class="head reveal">
         <div>
           <span class="eyebrow">Cómo funciona</span>
-          <h2>Cuatro piezas.<br>Un reloj para años.</h2>
+          <h2>Cinco piezas.<br>Un reloj para años.</h2>
         </div>
-        <p class="lead">Un reloj inteligente suele acabar en la basura por un solo fallo: una correa rota, una batería cansada, una esfera rayada. El nuestro no.</p>
+        <p class="lead">Un reloj inteligente suele acabar en la basura por un solo fallo: una correa rota, una batería cansada, un bisel rayado. El nuestro no.</p>
       </div>
       <div class="steps">
         <article class="step reveal">
@@ -394,18 +396,23 @@
           <p>De aluminio reciclado. Elige el modelo que encaja con tu día a día.</p>
         </article>
         <article class="step reveal">
-          <img class="photo" src="img/fotos/pieza-esfera.webp" alt="Esfera cuadrada hecha con trocitos de plástico azul y turquesa" width="830" height="830" loading="lazy" decoding="async">
-          <div class="n">02 · Esfera</div><h3>Tu estilo</h3>
-          <p>Diseños hechos con plástico recogido del mar o madera recuperada.</p>
+          <img class="photo" src="img/fotos/pieza-esfera.webp" alt="Bisel hecho con trocitos de plástico azul y turquesa" width="830" height="830" loading="lazy" decoding="async">
+          <div class="n">02 · Bisel</div><h3>Tu estilo</h3>
+          <p>El aro que rodea la pantalla y se ve. En seis acabados reciclados, de plástico marino a corcho.</p>
+        </article>
+        <article class="step reveal">
+          <div class="muestras" role="img" aria-label="Los seis acabados: azul océano, madera, corcho, negro neumático, café y verde cristal"><span style="background:#7FD3C7"></span><span style="background:#98734F"></span><span style="background:#C9B48A"></span><span style="background:#1F2020"></span><span style="background:#4B3326"></span><span style="background:#7FB89A"></span></div>
+          <div class="n">03 · Trasera</div><h3>Lo que toca tu piel</h3>
+          <p>La tapa de atrás, con los mismos seis acabados. Puede ir distinta al bisel.</p>
         </article>
         <article class="step reveal">
           <img class="photo" src="img/fotos/pieza-correas.webp" alt="Tres correas: tela beige, neopreno negro y cuero vegano marrón" width="830" height="830" loading="lazy" decoding="async">
-          <div class="n">03 · Correa</div><h3>Para cada plan</h3>
+          <div class="n">04 · Correa</div><h3>Para cada plan</h3>
           <p>Algodón reciclado, cuero vegano o neopreno para entrenar.</p>
         </article>
         <article class="step reveal">
           <img class="photo" src="img/fotos/pieza-bateria.webp" alt="Módulo de batería rectangular saliendo de la caja del reloj" width="830" height="830" loading="lazy" decoding="async">
-          <div class="n">04 · Batería</div><h3>Sin tirar nada</h3>
+          <div class="n">05 · Batería</div><h3>Sin tirar nada</h3>
           <p>Cuando se gasta, cambias la batería y sigues con tu reloj.</p>
         </article>
       </div>
@@ -427,7 +434,7 @@
           <span class="eyebrow">Modelos y piezas</span>
           <h2>Combínalo<br>como quieras.</h2>
         </div>
-        <p class="lead">Elige el modelo y vístelo con la correa y la esfera que te gusten. Lo vendemos directamente en nuestra tienda online, sin intermediarios.</p>
+        <p class="lead">Elige el modelo y vístelo con la correa, el bisel y la trasera que te gusten. Lo vendemos directamente en nuestra tienda online, sin intermediarios.</p>
       </div>
 
       <div class="models">
@@ -483,11 +490,21 @@
           </ul>
         </div>
         <div class="part reveal">
-          <h3>Esferas</h3>
+          <h3>Biseles</h3>
           <ul>
             <li><span><i class="sw" style="background:#4F7F95"></i>Océano · plástico marino</span><b>29 €</b></li>
+            <li><span><i class="sw" style="background:#2E2C27"></i>Neumático · caucho reciclado</span><b>29 €</b></li>
+            <li><span><i class="sw" style="background:#C9B48A"></i>Duna · corcho</span><b>30 €</b></li>
+            <li><span><i class="sw" style="background:#4B3326"></i>Café · posos prensados</span><b>31 €</b></li>
+            <li><span><i class="sw" style="background:#7FB89A"></i>Cristal · vidrio reciclado</span><b>31 €</b></li>
             <li><span><i class="sw" style="background:#7A6A4F"></i>Bosque · madera recuperada</span><b>32 €</b></li>
           </ul>
+        </div>
+        <div class="part reveal">
+          <h3>Trasera</h3>
+          <ul>
+            <li><span><i class="sw" style="background:conic-gradient(#4F7F95 0 17%,#2E2C27 0 33%,#C9B48A 0 50%,#4B3326 0 67%,#7FB89A 0 83%,#7A6A4F 0)"></i>Los mismos seis acabados</span><b>15 €</b></li>
+</ul>
         </div>
         <div class="part reveal">
           <h3>Recambios</h3>
@@ -512,8 +529,9 @@
       <div class="trace reveal">
         <ol>
           <li><span class="dot" style="background:var(--clay-wash);color:var(--clay-t)">C</span><div><b>Caja</b><small>La base del reloj</small></div><span class="from">Aluminio reciclado</span></li>
-          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Esfera Océano</b><small>Azul mar</small></div><span class="from">Plástico marino</span></li>
-          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Esfera Bosque</b><small>Vetas de madera</small></div><span class="from">Madera recuperada</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Bisel y trasera · Océano</b><small>Azul mar</small></div><span class="from">Plástico marino</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Bisel y trasera · Bosque</b><small>Vetas de madera</small></div><span class="from">Madera recuperada</span></li>
+          <li><span class="dot" style="background:var(--moss-wash);color:var(--moss-t)">E</span><div><b>Duna, Neumático, Café y Cristal</b><small>Otros cuatro acabados</small></div><span class="from">Corcho, caucho, café y vidrio</span></li>
           <li><span class="dot" style="background:var(--clay-wash);color:var(--clay-t)">R</span><div><b>Correas</b><small>Tres materiales</small></div><span class="from">Algodón y neopreno</span></li>
         </ol>
       </div>
@@ -521,8 +539,8 @@
     <div class="wrap">
       <div class="materials">
         <figure class="reveal"><img src="img/fotos/material-aluminio.webp" alt="Primer plano del aluminio cepillado de la caja, con sus vetas finas" width="460" height="345" loading="lazy" decoding="async"><figcaption><b>Aluminio reciclado</b>La caja</figcaption></figure>
-        <figure class="reveal"><img src="img/fotos/material-plastico.webp" alt="Primer plano de la esfera Océano: fragmentos de plástico azul y turquesa" width="240" height="180" loading="lazy" decoding="async"><figcaption><b>Plástico marino</b>Esfera Océano</figcaption></figure>
-        <figure class="reveal"><img src="img/fotos/material-madera.webp" alt="Primer plano de la veta de la esfera Bosque, en madera de tono cálido" width="280" height="210" loading="lazy" decoding="async"><figcaption><b>Madera recuperada</b>Esfera Bosque</figcaption></figure>
+        <figure class="reveal"><img src="img/fotos/material-plastico.webp" alt="Primer plano del bisel Océano: fragmentos de plástico azul y turquesa" width="240" height="180" loading="lazy" decoding="async"><figcaption><b>Plástico marino</b>Océano</figcaption></figure>
+        <figure class="reveal"><img src="img/fotos/material-madera.webp" alt="Primer plano de la veta del bisel Bosque, en madera de tono cálido" width="280" height="210" loading="lazy" decoding="async"><figcaption><b>Madera recuperada</b>Bosque</figcaption></figure>
         <figure class="reveal"><img src="img/fotos/material-correa.webp" alt="Primer plano del tejido de una correa negra de neopreno" width="440" height="330" loading="lazy" decoding="async"><figcaption><b>Neopreno reciclado</b>Correa para entrenar</figcaption></figure>
       </div>
       <p class="proto-note reveal">Imágenes de prototipo creadas para el proyecto. No son fotos de un producto fabricado.</p>

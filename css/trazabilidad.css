@@ -73,6 +73,7 @@ section.intro{padding:72px 0 56px}
 .fichas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
 .ficha{background:var(--card);border:1px solid var(--hair);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;min-width:0}
 .ficha img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#121212}
+.ficha-color{aspect-ratio:4/3;width:100%}
 .ficha-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
 .ficha h3{font-size:18px}
 .mat{margin:0;color:var(--moss-t);font-weight:600;font-size:14.5px}

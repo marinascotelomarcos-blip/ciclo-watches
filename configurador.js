@@ -15,10 +15,23 @@ const CATALOGO = {
     { id: "pro",   nombre: "CICLO Pro",       precio: 229, caja: "#5F605D", mano: "#7FD3C7", correa: "#262826", nota: "El más completo" },
     { id: "kids",  nombre: "CICLO Kids",      precio: 89,  caja: "#3A3C3A", mano: "#D4F25C", correa: "#7FD3C7", nota: "Para los peques" }
   ],
-  esfera: [
-    { id: "esfera-serie",  nombre: "Esfera de serie",         precio: 0,  color: "#0A0A0A", incluida: true },
-    { id: "esfera-oceano", nombre: "Océano (plástico marino)", precio: 29, color: "#7FD3C7", img: "img/fotos/pieza-esfera.webp",   corto: "Océano" },
-    { id: "esfera-bosque", nombre: "Bosque (madera recuperada)", precio: 32, color: "#98734F", img: "img/fotos/material-madera.webp", corto: "Bosque" }
+  bisel: [
+    { id: "bisel-serie", nombre: "Bisel de serie", precio: 0, incluida: true },
+    { id: "bisel-oceano", nombre: "Océano (plástico marino)", precio: 29, color: "#7FD3C7", corto: "Océano" },
+    { id: "bisel-bosque", nombre: "Bosque (madera recuperada)", precio: 32, color: "#98734F", corto: "Bosque" },
+    { id: "bisel-duna", nombre: "Duna (corcho)", precio: 30, color: "#C9B48A", corto: "Duna" },
+    { id: "bisel-neumatico", nombre: "Neumático (caucho reciclado)", precio: 29, color: "#1F2020", corto: "Neumático" },
+    { id: "bisel-cafe", nombre: "Café (posos prensados)", precio: 31, color: "#4B3326", corto: "Café" },
+    { id: "bisel-cristal", nombre: "Cristal (vidrio reciclado)", precio: 31, color: "#7FB89A", corto: "Cristal" }
+  ],
+  trasera: [
+    { id: "trasera-serie", nombre: "Trasera de serie", precio: 0, incluida: true },
+    { id: "trasera-oceano", nombre: "Océano (plástico marino)", precio: 15, color: "#7FD3C7", corto: "Océano" },
+    { id: "trasera-bosque", nombre: "Bosque (madera recuperada)", precio: 15, color: "#98734F", corto: "Bosque" },
+    { id: "trasera-duna", nombre: "Duna (corcho)", precio: 15, color: "#C9B48A", corto: "Duna" },
+    { id: "trasera-neumatico", nombre: "Neumático (caucho reciclado)", precio: 15, color: "#1F2020", corto: "Neumático" },
+    { id: "trasera-cafe", nombre: "Café (posos prensados)", precio: 15, color: "#4B3326", corto: "Café" },
+    { id: "trasera-cristal", nombre: "Cristal (vidrio reciclado)", precio: 15, color: "#7FB89A", corto: "Cristal" }
   ],
   correa: [
     { id: "correa-serie",    nombre: "Correa de serie",           precio: 0,  incluida: true },
@@ -38,7 +51,7 @@ const POCO = 5; // por debajo de este número de unidades se avisa de "Quedan po
 
 let stock = {};           // { id: unidades } ; lo que no aparece se considera disponible (p. ej. las piezas de serie)
 let stockEsEjemplo = true;
-const sel = { modelo: "one", esfera: "esfera-serie", correa: "correa-serie", extra: new Set() };
+const sel = { modelo: "one", bisel: "bisel-serie", trasera: "trasera-serie", correa: "correa-serie", extra: new Set() };
 
 /* ===== Lectura del stock: aislada para poder cambiarla por n8n ===== */
 async function pedirJSON(url, ms = 6000) {
@@ -122,7 +135,7 @@ function pintaGrupo(grupo, tipo) {
 
 /* Si lo elegido se ha quedado sin stock, pasamos a la primera opción disponible */
 function corrigeSeleccion() {
-  ["modelo", "esfera", "correa"].forEach(g => {
+  ["modelo", "bisel", "trasera", "correa"].forEach(g => {
     if (!hay(sel[g])) { const alt = CATALOGO[g].find(x => hay(x.id)); if (alt) sel[g] = alt.id; }
   });
   sel.extra.forEach(id => { if (!hay(id)) sel.extra.delete(id); });
@@ -130,24 +143,24 @@ function corrigeSeleccion() {
 
 /* ===== Vista previa, resumen y total ===== */
 function lineas() {
-  const m = buscar("modelo", sel.modelo), e = buscar("esfera", sel.esfera), c = buscar("correa", sel.correa);
+  const m = buscar("modelo", sel.modelo), e = buscar("bisel", sel.bisel), r = buscar("trasera", sel.trasera), c = buscar("correa", sel.correa);
   const l = [{ t: m.nombre, p: m.precio }];
-  l.push({ t: e.incluida ? "Esfera de serie" : "Esfera " + e.corto, p: e.precio });
+  l.push({ t: e.incluida ? "Bisel de serie" : "Bisel " + e.corto, p: e.precio });
+  l.push({ t: r.incluida ? "Trasera de serie" : "Trasera " + r.corto, p: r.precio });
   l.push({ t: c.incluida ? "Correa de serie" : "Correa de " + c.corto, p: c.precio });
   CATALOGO.extra.filter(x => sel.extra.has(x.id)).forEach(x => l.push({ t: x.nombre, p: x.precio }));
   return l;
 }
 
 function actualiza() {
-  const m = buscar("modelo", sel.modelo), e = buscar("esfera", sel.esfera);
+  const m = buscar("modelo", sel.modelo), e = buscar("bisel", sel.bisel), r = buscar("trasera", sel.trasera);
   const reloj = $("reloj");
   reloj.style.setProperty("--strap", colorCorrea());
   reloj.style.setProperty("--case", m.caja);
   reloj.style.setProperty("--hand", m.mano);
-  const img = $("esfera-img");
-  if (e.img) { img.setAttribute("href", e.img); img.setAttribute("opacity", "1"); }
-  else { img.setAttribute("opacity", "0"); }
-  $("esfera-color").setAttribute("fill", e.img ? e.color : "#0A0A0A");
+  reloj.style.setProperty("--bisel", e.color || m.caja);
+  $("trasera-sw").style.background = r.color || "#2B2C2C";
+  $("trasera-nombre").textContent = r.incluida ? "Trasera de serie" : "Trasera " + r.corto;
   const ls = lineas();
   const ul = $("lista-resumen"); ul.innerHTML = "";
   ls.forEach(x => {
@@ -187,7 +200,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") menu(false);
 /* ===== Arranque ===== */
 function pintaTodo() {
   corrigeSeleccion();
-  pintaGrupo("modelo", "radio"); pintaGrupo("esfera", "radio"); pintaGrupo("correa", "radio"); pintaGrupo("extra", "checkbox");
+  pintaGrupo("modelo", "radio"); pintaGrupo("bisel", "radio"); pintaGrupo("trasera", "radio"); pintaGrupo("correa", "radio"); pintaGrupo("extra", "checkbox");
   actualiza();
 }
 pintaTodo(); // primero con todo disponible, para que no salte la pantalla
