@@ -2,9 +2,9 @@
 
 /* ===== Conexiones (misma idea que en index.html) =====
    urlStock: URL de un flujo de n8n (webhook GET) que devuelva el mismo formato que data/stock.json:
-   { "unidades": { "one": 14, "pro": 0, ... } }. Vacía = se usa data/stock.json (datos de ejemplo). */
+   { "ejemplo": true, "unidades": { "one": 14, "pro": 0, ... } }. Vacía = se usa data/stock.json (datos de ejemplo). */
 const CONEXIONES = {
-  urlStock: ""
+  urlStock: "https://uiemmc.app.n8n.cloud/webhook/ciclo-stock"
 };
 
 /* ===== Catálogo real de la marca (precios en €) ===== */
