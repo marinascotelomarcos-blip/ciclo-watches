@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marinascotelomarcos-blip.github.io/ciclo-watches/sitemap.xml
