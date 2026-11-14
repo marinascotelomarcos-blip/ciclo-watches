@@ -5,7 +5,15 @@
   const DIAS_LABORABLES = 21;                                   // cuántos días laborables se ofrecen
   const FRANJAS = [["10:00", "14:00"], ["16:00", "19:00"]];     // horario: [desde, hasta); huecos de 30 min
   const MIN_HUECO = 30;
-  const FESTIVOS = [                                             // días sin cita (AAAA-MM-DD). Añade aquí los de A Coruña
+  // Festivos laborales de A Coruña ciudad, nov 2026 - ene 2027 (AAAA-MM-DD). Comprobados el 14-11-2026:
+  //  - Nacionales y de Galicia 2026 (Decreto de la Xunta, DOG 20-06-2025): 8 dic y 25 dic. El 1 nov y el 6 dic 2026
+  //    caen en domingo y Galicia los sustituye por otras fechas (19 mar y 24 jun), así que no hay lunes festivo.
+  //    https://www.xunta.gal/dog/Publicados/2025/20250620/AnuncioG0767-120625-0002_gl.html
+  //  - Galicia 2027 (Decreto 68/2026, DOG 02-07-2026): 1 ene y 6 ene.
+  //    https://www.xunta.gal/dog/Publicados/2026/20260702/AnuncioG0767-250626-0001_gl.html
+  //  - Locales de A Coruña: 2026 = 17 feb y 7 oct; 2027 = 9 feb y 24 jun (resolución DOG 26-10-2026, anexo I).
+  //    Ninguno cae entre nov 2026 y ene 2027, por eso no aparece ninguno local.
+  const FESTIVOS = [
     "2026-12-08", "2026-12-25", "2027-01-01", "2027-01-06"
   ];
 
