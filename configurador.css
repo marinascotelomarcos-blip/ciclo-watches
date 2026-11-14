@@ -17,6 +17,7 @@ img,svg{display:block}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 em{font-style:italic;color:var(--clay)}
 :focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;z-index:30;text-decoration:none;font-weight:600}.skip:focus{top:10px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--hair)}

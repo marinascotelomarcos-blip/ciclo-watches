@@ -148,3 +148,4 @@ footer .row span:last-child{max-width:560px}
 
 /* Táctil: zonas de toque de 40 px o más */
 @media (pointer:coarse){.help button{min-height:40px;padding:10px 4px}footer a{display:inline-block;padding:10px 4px}}
+.claro :focus-visible{outline-color:var(--clay-t)}

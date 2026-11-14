@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CICLO Watches</title>
+<title>CICLO Watches · Cambias la pieza, no el reloj</title>
 <meta name="description" content="Relojes inteligentes por piezas, hechos con material reciclado. Cambias la pieza, no el reloj.">
 <link rel="canonical" href="https://marinascotelomarcos-blip.github.io/ciclo-watches/">
 <meta name="theme-color" content="#121212">
@@ -265,6 +265,9 @@
 
   /* Foco visible al navegar con teclado */
   :focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+  .claro :focus-visible{outline-color:var(--clay-t)}
+  .skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;z-index:30;text-decoration:none;font-weight:600}.skip:focus{top:10px}
+  input::placeholder,textarea::placeholder{color:#8B8C88;opacity:1}
 
   /* Pulido: contraste del número de paso, enlace de salto, aire final para que el botón del asistente no tape el pie */
   .step .n{color:var(--ink-soft)}
@@ -323,6 +326,7 @@
 <link rel="stylesheet" href="cita.css">
 </head>
 <body>
+<a class="skip" href="#inicio">Saltar al contenido</a>
 <a class="salto" href="#inicio">Saltar al contenido</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
