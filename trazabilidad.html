@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trazabilidad del material · CICLO Watches</title>
+<meta name="description" content="De dónde sale cada pieza de tu reloj CICLO: el recorrido del material reciclado, una ficha por pieza y una consulta por código de lote.">
+<link rel="icon" type="image/svg+xml" href="marca/favicon.svg">
+<link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="css/trazabilidad.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Principal">
+      <a class="logo" href="index.html" aria-label="CICLO Watches, inicio">
+        <svg class="logo-mark" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="48 15" stroke-linecap="round" transform="rotate(-60 13 13)"/><circle cx="13" cy="13" r="3.4" fill="var(--clay)"/></svg>
+        CICLO
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-secciones" aria-label="Abrir el menú"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="links" id="menu-secciones">
+        <a href="index.html#como">Cómo funciona</a>
+        <a href="index.html#modelos">Modelos</a>
+        <a href="index.html#origen">Material reciclado</a>
+        <a href="trazabilidad.html" aria-current="page">Trazabilidad</a>
+        <a href="index.html#equipo">Equipo</a>
+      </div>
+      <a class="btn small" href="index.html#contacto">Contáctanos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="intro">
+    <div class="wrap">
+      <span class="eyebrow">Trazabilidad</span>
+      <h1>De dónde sale <em>cada pieza.</em></h1>
+      <p class="lead">Cada pieza de tu reloj lleva grabado un código de lote. Con él puedes ver de qué material es, de dónde viene y qué pasa con ella cuando ya no la quieras.</p>
+      <p class="demo-note" role="note"><b>Datos de ejemplo del proyecto.</b> CICLO es una empresa ficticia del Grupo 6 (UIE). Los porcentajes, orígenes y lotes de esta página son inventados para enseñar cómo funcionaría; no son datos reales ni certificados.</p>
+      <div class="ctas"><a class="btn" href="#consulta">Consulta tu pieza <span class="arrow">→</span></a><a class="btn light" href="#piezas">Ver las piezas</a></div>
+    </div>
+  </section>
+
+  <section id="recorrido" aria-labelledby="t-recorrido">
+    <div class="wrap">
+      <span class="eyebrow">El recorrido</span>
+      <h2 id="t-recorrido">Seis pasos, y vuelta a empezar.</h2>
+      <div class="path-grid">
+        <ol class="path">
+          <li><span class="dot">1</span><div><h3>Recogida</h3><p>Chatarra de aluminio, redes de pesca, retales de tela o madera de talleres. Se recoge cerca y se apunta de dónde viene.</p></div></li>
+          <li><span class="dot">2</span><div><h3>Clasificación</h3><p>Se separa por tipo y se limpia. Aquí se abre el lote y se le da su código.</p></div></li>
+          <li><span class="dot">3</span><div><h3>Transformación</h3><p>Se funde, tritura, hila o prensa hasta tener material listo para fabricar.</p></div></li>
+          <li><span class="dot">4</span><div><h3>Pieza</h3><p>Se hace la caja, la esfera, la correa o la batería, y se graba el código de lote.</p></div></li>
+          <li><span class="dot">5</span><div><h3>Uso</h3><p>Llevas el reloj. Si algo se rompe o te cansas, cambias solo esa pieza.</p></div></li>
+          <li><span class="dot">6</span><div><h3>Devolución o recambio</h3><p>La pieza vuelve a CICLO y su material empieza otro recorrido.</p></div></li>
+        </ol>
+        <figure class="b4">
+          <img src="img/recursos/B4-ciclo-material.webp" alt="Ilustración del ciclo del material: mar (plástico reciclado), tierra (madera recuperada), materiales (aluminio reciclado) y tu muñeca" width="1100" height="1000" loading="lazy" decoding="async">
+          <figcaption>Ilustración de prototipo del ciclo del material.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="piezas" class="alt" aria-labelledby="t-piezas">
+    <div class="wrap">
+      <span class="eyebrow">Una ficha por pieza</span>
+      <h2 id="t-piezas">Qué lleva cada pieza.</h2>
+      <p class="lead">Origen genérico: decimos el tipo de proveedor y la zona, sin nombres de empresas. El porcentaje es el contenido reciclado de la pieza.</p>
+      <div id="fichas" class="fichas" aria-live="polite"><p class="cargando">Cargando las fichas…</p></div>
+    </div>
+  </section>
+
+  <section id="consulta" aria-labelledby="t-consulta">
+    <div class="wrap consulta">
+      <div>
+        <span class="eyebrow">Consulta tu pieza</span>
+        <h2 id="t-consulta">Escribe el código de tu lote.</h2>
+        <p class="lead">Está grabado en la pieza, con este formato: <b class="code">CW-XXXX-YYYY</b>. Puedes escribirlo en minúsculas o sin guiones.</p>
+        <form id="form-lote" novalidate>
+          <label for="codigo">Código de lote</label>
+          <div class="row">
+            <input id="codigo" name="codigo" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CW-ALU1-0001" aria-describedby="ayuda-codigo">
+            <button class="btn" type="submit">Consultar <span class="arrow">→</span></button>
+          </div>
+          <p id="ayuda-codigo" class="help">Prueba con uno de ejemplo:
+            <span id="ejemplos"></span>
+          </p>
+        </form>
+      </div>
+      <div id="resultado" class="resultado" role="status" aria-live="polite" tabindex="-1">
+        <p class="vacio">Aquí saldrá la ficha de tu pieza.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt cierre">
+    <div class="wrap">
+      <h2>Lo que prometemos, y lo que aún no.</h2>
+      <p class="lead">Queremos registrar el lote de todas las piezas. Hoy es el plan del proyecto: aún no hay certificaciones, y las normas que miramos (como el estándar de contenido reciclado y el pasaporte digital de producto europeo) son objetivos, no algo ya cumplido.</p>
+      <p class="demo-note" role="note"><b>Datos de ejemplo del proyecto.</b> Empresa ficticia: no se venden productos reales.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span><b class="serif" style="color:var(--ink)">CICLO Watches</b> · A Coruña</span>
+      <span>Proyecto académico del Grupo 6 (UIE, Gestión de la Innovación y Transformación Digital). Empresa ficticia: no se venden productos reales. <a href="privacidad.html">Privacidad</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/trazabilidad.js"></script>
+</body>
+</html>

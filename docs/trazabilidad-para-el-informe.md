@@ -1,0 +1,7 @@
+# Trazabilidad del material reciclado (para el informe final)
+
+Una de las dificultades que identificamos en el informe de avance era saber el origen del material reciclado: cada proveedor da esa información a su manera, y sin un formato común es difícil decirle al cliente de dónde viene su pieza con honestidad. Para responderla hemos diseñado un sistema de lotes. Cada pieza (caja, esferas, correas y batería) se graba con un código `CW-XXXX-YYYY` y a cada lote se le pide siempre los mismos datos: material, tipo de proveedor y zona de origen, fecha de recogida, porcentaje de contenido reciclado y qué pasa con la pieza al final de su vida. Así, aunque cada proveedor nos lo cuente a su manera, nosotros lo traducimos a una ficha igual para todos.
+
+En la web, la página de trazabilidad enseña el recorrido del material (recogida, clasificación, transformación, pieza, uso y devolución) y permite al cliente escribir su código para ver la ficha de su pieza. Los datos de la web son de ejemplo, porque CICLO es una empresa ficticia; en una empresa real, el reto sería conseguir que los proveedores rellenen esos datos y poder comprobarlos. Las normas de contenido reciclado y el pasaporte digital de producto europeo son un objetivo del plan, no algo ya cumplido.
+
+**Indicador propuesto:** porcentaje de piezas vendidas con lote registrado y ficha completa (objetivo: 100 %). Como apoyo, el contenido reciclado medio ponderado por pieza y el número de consultas de código al mes, que indican si al cliente le interesa.

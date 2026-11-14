@@ -1,0 +1,80 @@
+{
+  "aviso": "Datos de ejemplo de un proyecto académico (empresa ficticia). Ningún porcentaje, origen ni lote es real.",
+  "piezas": {
+    "caja": {
+      "nombre": "Caja de aluminio reciclado",
+      "letra": "C", "tono": "clay",
+      "foto": "img/fotos/pieza-caja.webp",
+      "material": "Aluminio reciclado",
+      "origen": "Chatarra de aluminio de envases y perfiles de construcción, recogida por recuperadores locales y fundida en una planta de refundición del norte de España.",
+      "reciclado": 70,
+      "finDeVida": "Se devuelve en el recambio y se funde otra vez. El aluminio se puede reciclar muchas veces sin perder calidad."
+    },
+    "esfera-oceano": {
+      "nombre": "Esfera Océano",
+      "letra": "E", "tono": "moss",
+      "foto": "img/fotos/pieza-esfera.webp",
+      "material": "Plástico recuperado del mar",
+      "origen": "Redes y cabos de plástico retirados por cofradías y proyectos de limpieza de costa del Cantábrico y el Atlántico, triturados y moldeados por un transformador de plásticos.",
+      "reciclado": 85,
+      "finDeVida": "La esfera usada vuelve al transformador, que la tritura para hacer otra tanda de esferas o piezas de plástico técnico."
+    },
+    "esfera-bosque": {
+      "nombre": "Esfera Bosque",
+      "letra": "E", "tono": "moss",
+      "foto": "img/fotos/material-madera.webp",
+      "material": "Madera recuperada",
+      "origen": "Recortes de carpintería y tarimas desechadas de talleres del noroeste peninsular, secados, laminados y prensados con un aglutinante.",
+      "reciclado": 90,
+      "finDeVida": "Se separa del resto y se recupera como madera para nuevos laminados; si no se puede, va a recogida de madera para valorización."
+    },
+    "correa-algodon": {
+      "nombre": "Correa de algodón reciclado",
+      "letra": "R", "tono": "clay",
+      "foto": "img/fotos/pieza-correas.webp",
+      "material": "Algodón reciclado",
+      "origen": "Retales y prendas de algodón sin uso de talleres textiles, desfibrados y tejidos de nuevo por una hilatura del norte de Portugal.",
+      "reciclado": 60,
+      "finDeVida": "Vuelve en el recambio y se desfibra otra vez para hilo nuevo. La fibra reciclada se mezcla con algodón nuevo para dar resistencia."
+    },
+    "correa-neopreno": {
+      "nombre": "Correa de neopreno reciclado",
+      "letra": "R", "tono": "clay",
+      "foto": "img/fotos/material-correa.webp",
+      "material": "Neopreno reciclado",
+      "origen": "Restos de corte de trajes de neopreno y fundas deportivas, molidos y laminados por un fabricante de cauchos técnicos del Mediterráneo.",
+      "reciclado": 40,
+      "finDeVida": "Se devuelve y se muele para otros usos de caucho (suelas, protecciones). Es la correa con menos contenido reciclado y lo decimos tal cual."
+    },
+    "correa-cuero": {
+      "nombre": "Correa de cuero vegano",
+      "letra": "R", "tono": "clay",
+      "foto": "img/fotos/pieza-correas.webp",
+      "material": "Cuero vegano (base vegetal y soporte reciclado)",
+      "origen": "Soporte textil de poliéster reciclado con un recubrimiento de origen vegetal, fabricado por un taller de materiales alternativos del norte de Italia.",
+      "reciclado": 30,
+      "finDeVida": "Se separa el herraje metálico (se recicla aparte) y el resto va a recogida de textiles. Todavía no hay una ruta de reciclaje completa: es un punto a mejorar."
+    },
+    "bateria": {
+      "nombre": "Batería",
+      "letra": "B", "tono": "moss",
+      "foto": "img/fotos/pieza-bateria.webp",
+      "material": "Celda de ion-litio con carcasa de aluminio reciclado",
+      "origen": "Celdas de un fabricante europeo de baterías, con carcasa de aluminio reciclado y una parte de metales recuperados de baterías usadas.",
+      "reciclado": 25,
+      "finDeVida": "Nunca va a la basura normal. Se devuelve a CICLO y se entrega a un gestor autorizado de residuos de baterías para recuperar litio, cobalto y aluminio."
+    }
+  },
+  "lotes": [
+    { "codigo": "CW-ALU1-0001", "pieza": "caja",            "recogida": "marzo de 2026",    "zona": "Galicia y norte de Portugal", "reciclado": 72, "nota": "Lote de caja de 120 unidades de ejemplo." },
+    { "codigo": "CW-ALU1-0002", "pieza": "caja",            "recogida": "mayo de 2026",     "zona": "País Vasco",                  "reciclado": 68, "nota": "Lote de caja de 90 unidades de ejemplo." },
+    { "codigo": "CW-OCE2-0014", "pieza": "esfera-oceano",   "recogida": "abril de 2026",    "zona": "Costa de Galicia",            "reciclado": 85, "nota": "Plástico de redes retiradas en una campaña de limpieza (ejemplo)." },
+    { "codigo": "CW-OCE2-0015", "pieza": "esfera-oceano",   "recogida": "junio de 2026",    "zona": "Cantábrico",                  "reciclado": 82, "nota": "Lote con algo más de plástico de cabos (ejemplo)." },
+    { "codigo": "CW-BOS3-0007", "pieza": "esfera-bosque",   "recogida": "febrero de 2026",  "zona": "Ourense y León",              "reciclado": 90, "nota": "Recortes de carpintería de roble y castaño (ejemplo)." },
+    { "codigo": "CW-ALG4-0031", "pieza": "correa-algodon",  "recogida": "enero de 2026",    "zona": "Norte de Portugal",           "reciclado": 60, "nota": "Retales textiles sin uso (ejemplo)." },
+    { "codigo": "CW-NEO5-0022", "pieza": "correa-neopreno", "recogida": "abril de 2026",    "zona": "Comunidad Valenciana",        "reciclado": 41, "nota": "Restos de corte de neopreno (ejemplo)." },
+    { "codigo": "CW-CUE6-0009", "pieza": "correa-cuero",    "recogida": "mayo de 2026",     "zona": "Norte de Italia",             "reciclado": 30, "nota": "Soporte de poliéster reciclado (ejemplo)." },
+    { "codigo": "CW-BAT7-0105", "pieza": "bateria",         "recogida": "marzo de 2026",    "zona": "Europa central",              "reciclado": 25, "nota": "Lote de baterías con carcasa de aluminio reciclado (ejemplo)." },
+    { "codigo": "CW-BAT7-0106", "pieza": "bateria",         "recogida": "julio de 2026",    "zona": "Europa central",              "reciclado": 27, "nota": "Segundo lote de baterías (ejemplo)." }
+  ]
+}
